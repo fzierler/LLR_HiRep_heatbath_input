@@ -1,0 +1,40 @@
+rlx_level = 1
+rlx_start = new
+rlx_state = rand_state
+
+//Logger levels (default = -1)
+log:default = -1
+log:inverter = -1
+log:forcestat = 0
+
+// Runtime variables
+//example: run1_8x8x8x8nc2rFUNnf0b0.000000m0.000000
+therm = 1000
+run name = run1
+config dir = Cnfg
+gauge start = random
+//rm steps = 20
+rm restart = 1
+meas freq = 1000
+save freq = 1000
+config save frequency = 1000
+last conf = +0
+beta  =   2.40
+nhb   =   1
+nor   =   0
+nit   =   1
+
+// LLR
+llr:make = true
+llr:nmc = 700
+llr:nth = 300
+llr:it = 1
+llr:sfreq_RM = 0
+llr:sfreq_fxa = 0
+llr:nfxa = 0
+llr:Smin = 4620288.00000 
+llr:Smax = 4651745.28000
+llr:N_nr = 1
+llr:db = 0.001
+llr:it_freq = 1
+

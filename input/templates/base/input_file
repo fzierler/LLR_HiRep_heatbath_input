@@ -1,0 +1,19 @@
+// Global variables
+GLB_T = 5
+GLB_X = 80
+GLB_Y = 80
+GLB_Z = 80
+NP_T = 1
+NP_X = 4
+NP_Y = 1
+NP_Z = 1
+BC_SHIFT_X=0
+BC_SHIFT_Y=0
+BC_SHIFT_Z=0
+// Replicas
+N_REP = 95
+
+//Logger levels (default = -1)
+log:default = -1
+log:inverter = -1
+log:forcestat = 0

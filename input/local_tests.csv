@@ -1,0 +1,2 @@
+Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,IS_b,std_folder,N_th,N_meas,Nfs_swaps,Nfa_meas,PX
+4,20,8,1,10,50,0.568,0.576,"[7.32, 7.33, 7.335, 7.34, 7.345, 7.35]",input/data/IS_4x20/,300,700,50,100,1
