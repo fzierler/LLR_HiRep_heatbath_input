@@ -17,5 +17,4 @@ for i in {0..0}; do
 
     # move on to next repeat
     cd ..
-    chmod -R ug+rwx $i
 done

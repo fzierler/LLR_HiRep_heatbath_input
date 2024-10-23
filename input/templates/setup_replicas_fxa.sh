@@ -70,7 +70,9 @@ do
     fi
     New_File=$(echo $gsfile | grep -oP '.*(?<=n)')
     New_File=$(echo $New_File$RM_NUM)
-    mv Rep_${i}/$gsfile Rep_${i}/$New_File
+    if [ "$gsfile" != "$New_File" ]; then
+        mv Rep_${i}/$gsfile Rep_${i}/$New_File
+    fi
     echo "gauge start = ${New_File}" >> Rep_${i}/input_file
     cp Rep_${i}/rand_state Rep_${i}/rand_state_${M}
     N=$(grep "last conf =" Rep_$i/input_file | grep -o -E '[0-9]+'| tail -n 1)

@@ -8,16 +8,23 @@ import os
 outdir    = "./output/"
 input_dir = "./input/templates/"
 infofile  = "./input/local_tests.csv"
-dial = False
 
-if dial:
+# Either "dial3", "csd3", otherwise defaults to "local"
+machine = "local"
+
+if machine == "dial3":
     cores_per_node = 128
-    bash_files = ["sp4_llr_start_dial.sh","sp4_llr_start_cont_dial.sh","sp4_llr_cont_dial.sh","sp4_llr_fxa_dial.sh"]
-else:
+    template_dir = "dial3"
+elif machine == "csd3":
     cores_per_node = 76
-    bash_files = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
+    template_dir = "csd3"
+else:
+    cores_per_node = 8
+    template_dir = "local"
 
-# create a suitable name for the run:
+bash_files = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
+
+## create a suitable name for the run:
 input_data = pd.read_csv(infofile)
 Lt  = input_data["Lt"].values[0]
 Ls  = input_data["Ls"].values[0]
@@ -36,11 +43,14 @@ infile  = os.path.join(input_dir,"base","input_file_rep")
 outfile = os.path.join(folder,"base","input_file_rep")
 ifiles.input_files_from_csv(infile,outfile,infofile)
 
-infile  = os.path.join(input_dir,"setup_llr_repeat.sh")
+if template_dir == "local":
+    infile  = os.path.join(input_dir,"setup_llr_repeat_local.sh")
+else:
+    infile  = os.path.join(input_dir,"setup_llr_repeat.sh")
 outfile = os.path.join(folder,"setup_llr_repeat.sh")
 ifiles.input_files_from_csv(infile,outfile,infofile)
 
 for name in bash_files:
-    infile  = os.path.join(input_dir,name)
-    outfile = os.path.join(folder,name.replace('_dial',''))
+    infile  = os.path.join(input_dir,template_dir,name)
+    outfile = os.path.join(folder,name)
     ifiles.csd3_batch_files(infile,outfile,infofile,cores_per_node)
