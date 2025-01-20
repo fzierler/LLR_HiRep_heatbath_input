@@ -7,6 +7,13 @@ import os.path
 import re
 from shutil import copyfile
 
+"""
+This function generates a three-column csv file that contains the replica-specfic input quantities
+needed to run the LLR for the heatbath updates. The layout is the following:
+    Column 1: Central energy (aka E0/S0)
+    Column 2: Initial value of a_0
+    Column 3: Energy interval width (aka dE/dS) 
+"""
 def predat_from_csv(folder,infofile):
     
     os.makedirs(os.path.join(folder,"base"), exist_ok=True)
