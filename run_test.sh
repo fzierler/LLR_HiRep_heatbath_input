@@ -1,3 +1,4 @@
+mkdir -p output
 cd output
 git clone https://github.com/fzierler/Hirep_LLR_SP
 cd Hirep_LLR_SP/LLR_HB/
@@ -20,7 +21,7 @@ find . -name err_0 | xargs rm
 tar cf - ./0/ | sha1sum  # obtain checksum of the resulting directory 
 mv 0/ 0_reference/       # The input files can now be easily compared with a tool like meld
 
-Now repeat the run again, to test whether it is fully reproducible
+# Now repeat the run again, to test whether it is fully reproducible
 bash setup_llr_repeat.sh
 find . -name rand_state* | xargs rm
 find . -name run1* | xargs rm

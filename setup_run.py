@@ -9,7 +9,7 @@ outdir    = "./output/"
 input_dir = "./input/templates/"
 infofile  = "./input/local_tests.csv"
 
-# Either "dial3", "csd3", otherwise defaults to "local"
+# Either "dial3", "csd3", otherwise defaults to "local_reproducible"
 machine = "local"
 
 if machine == "dial3":
@@ -20,7 +20,7 @@ elif machine == "csd3":
     template_dir = "csd3"
 else:
     cores_per_node = 8
-    template_dir = "local"
+    template_dir = "local_reproducible"
 
 bash_files = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
 
@@ -43,7 +43,7 @@ infile  = os.path.join(input_dir,"base","input_file_rep")
 outfile = os.path.join(folder,"base","input_file_rep")
 ifiles.input_files_from_csv(infile,outfile,infofile)
 
-if template_dir == "local":
+if template_dir == "local_reproducible":
     infile  = os.path.join(input_dir,"setup_llr_repeat_local.sh")
 else:
     infile  = os.path.join(input_dir,"setup_llr_repeat.sh")
