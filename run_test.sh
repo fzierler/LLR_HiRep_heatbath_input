@@ -25,4 +25,4 @@ find .. -name out_0 | xargs rm
 find .. -name "input_file*" | xargs -i sort {} -o {} 
 
 diff -rqwB ../0_new/ ../0_reference/
-#meld ../0_new/ ../0_reference/
+meld ../0_new/ ../0_reference/

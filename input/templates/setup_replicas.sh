@@ -53,7 +53,6 @@ do
     A=${stringarray[1]}
     de=${stringarray[2]}
     mkdir Rep_${i}
-    mkdir Rep_${i}/Cnfg
     cp $INPUTFILE Rep_${i}/input_file
     echo "rlx_seed = ${RANDOM}" >> Rep_${i}/input_file
     echo "llr:S0 = $E" >> Rep_${i}/input_file
@@ -65,4 +64,3 @@ do
     i=`echo "${i}+1"|bc -l`
 
 done < "$FILEA"
-mkdir CSV
