@@ -11,9 +11,9 @@ for i in {0..0}; do
 
     # submit all jobs
     bash ../sp4_llr_start.sh
-    #bash ../sp4_llr_start_cont.sh
-    #bash ../sp4_llr_cont.sh
-    #bash ../sp4_llr_fxa.sh
+    bash ../sp4_llr_start_cont.sh
+    bash ../sp4_llr_cont.sh
+    bash ../sp4_llr_fxa.sh
 
     # move on to next repeat
     cd ..
