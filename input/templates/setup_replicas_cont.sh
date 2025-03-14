@@ -1,7 +1,5 @@
 #!/bin/bash
 # Argument = -R NReplica
-INPUTFILE="input_file_rep"
-WDIR=$PWD
 usage()
 {
 cat << EOF
