@@ -10,15 +10,17 @@ python setup_run.py
 cd output/LLR_4x4_8/
 
 # now we have a test run in output/LLR_4x4_8/0/
+rm -rf ../0_reference/ 
 bash setup_llr_repeat.sh
-mv 0/ 0_reference/
+mv 0/ ../0_reference/
 
 # Now repeat the run again, to test whether it is fully reproducible
+rm -rf ../0_new/
 bash setup_llr_repeat.sh
-mv 0/ 0_new/
+mv 0/ ../0_new/
 
 # We need to remove the output files beore comparing since they differ in the timings of the operations
-find . -name out_0 | xargs rm
+find .. -name out_0 | xargs rm
 
-diff -r -q 0_new/ 0_reference/
-meld 0_new/ 0_reference/
+diff -rqwB ../0_new/ ../0_reference/
+#meld ../0_new/ ../0_reference/
