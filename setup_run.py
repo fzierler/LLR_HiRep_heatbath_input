@@ -53,4 +53,4 @@ ifiles.input_files_from_csv(infile,outfile,infofile)
 for name in bash_files:
     infile  = os.path.join(input_dir,template_dir,name)
     outfile = os.path.join(folder,name)
-    ifiles.csd3_batch_files(infile,outfile,infofile,cores_per_node)
+    ifiles.edit_batch_files(infile,outfile,infofile,cores_per_node)

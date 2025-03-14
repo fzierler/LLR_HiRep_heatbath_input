@@ -83,12 +83,10 @@ def copy_identical_files(folder,basedir):
 def ceildiv(a, b):
     return -(a // -b)
 
-def csd3_batch_files(infile,outfile,infofile,cores_per_node):
+def edit_batch_files(infile,outfile,infofile,cores_per_node):
     info_df = pd.read_csv(infofile)
-    
     nreplicas = info_df['n_replicas'][0]
     PX = info_df['PX'][0] # domain decomposition
-
     tasks = nreplicas*PX 
     nodes = ceildiv(tasks, cores_per_node)
 
