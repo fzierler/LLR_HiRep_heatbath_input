@@ -22,20 +22,19 @@ def predat_from_csv(folder,infofile):
     info_df = pd.read_csv(newinfofile)
     predat = os.path.join(folder,"base","pre.dat")
 
-    print('Creating inital a and E')
     V = info_df['Lt'][0]*info_df['Ls'][0]**3
     umin, umax = info_df['umin'][0], info_df['umax'][0]
     nreplicas  = info_df['n_replicas'][0]
-    IS_betas   = eval(info_df['IS_b'][0])
-    std_folder = info_df['std_folder'][0]
-    pre_dat(std_folder,V,umin,umax,nreplicas,IS_betas,predat)
+    init_file  = info_df['an_file'][0]
+
+    init_df = pd.read_csv(init_file)
+    beta    = init_df['beta'] 
+    S0      = init_df['S0']
+    pre_dat(beta,S0,V,umin,umax,nreplicas,predat)
     return
 
-def pre_dat(folder,V,up_min,up_max,N_intervals, betas, location):
-    is_df = pd.read_csv(f'{folder}std.csv')
-    x = np.array(betas)
-    y = np.array([is_df[is_df['Beta']==b]['Plaq'] * 6 * V for b in betas]).flatten()
-    fit = np.poly1d(np.polyfit(y,x,3))
+def pre_dat(beta,S0,V,up_min,up_max,N_intervals,location):
+    fit = np.poly1d(np.polyfit(S0,beta,3))
     Eks = np.linspace(up_min,up_max, N_intervals)* 6 * V
     aks = fit(Eks)
     dE = (Eks[1]-Eks[0])*2
