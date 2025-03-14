@@ -1,37 +1,17 @@
 #!/bin/bash
 # Argument = -R NReplica
-usage()
-{
-cat << EOF
-usage: $0 options
-
-This script run the LLR program on
-
-OPTIONS:
-   -h      Show this message
-   -r      Number of replicas
-EOF
-}
 r=
-while getopts “hr:” OPTION
+while getopts “r:” OPTION
 do
      case $OPTION in
-         h)
-             usage
-             exit 1
-             ;;
          r)
              r=$OPTARG
-             ;;
-         ?)
-             usage
-             exit
              ;;
      esac
 done
 if [[ -z $r ]]
 then
-     usage
+     echo "Number of replicas -r not specified"
      exit 1
 fi
 
