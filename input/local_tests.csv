@@ -1,4 +1,4 @@
-Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file
-4,4,8,1,2,2,0.568,0.576,300,700,50,100,1,input/data/Nt4_std_beta_vs_S0.txt
-5,4,8,1,2,2,0.5875,0.5915,300,700,50,100,1,input/data/Nt5_std_beta_vs_S0.txt
-6,4,8,1,2,2,0.6017,0.6027,300,700,50,100,1,input/data/Nt6_std_beta_vs_S0.txt
+Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,machine,cores_per_node
+4,4,8,1,2,2,0.568,0.576,300,700,50,100,1,input/data/Nt4_std_beta_vs_S0.txt,local,8
+5,4,8,1,2,2,0.5875,0.5915,300,700,50,100,1,input/data/Nt5_std_beta_vs_S0.txt,local,8
+6,4,8,1,2,2,0.6017,0.6027,300,700,50,100,1,input/data/Nt6_std_beta_vs_S0.txt,local,8

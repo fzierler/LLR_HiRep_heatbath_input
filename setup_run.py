@@ -5,27 +5,15 @@ import llranalysis.inputfiles as ifiles
 import pandas as pd 
 import os.path as op
 
-outdir    = "./output/"
-input_dir = "./input/templates/"
-infofile  = "./input/local_tests.csv"
-
-# Either "dial3", "csd3", otherwise defaults to "local_reproducible"
-machine = "local"
-
-if machine == "dial3":
-    cores_per_node = 128
-    template_dir = "dial3"
-elif machine == "csd3":
-    cores_per_node = 76
-    template_dir = "csd3"
-else:
-    cores_per_node = 8
-    template_dir = "local_reproducible"
-
+outdir     = "./output/"
+input_dir  = "./input/templates/"
+infofile   = "./input/local_tests.csv"
 bash_files = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
 
 ## create a suitable name for the run:
 input_data = pd.read_csv(infofile)
+template_dir   = input_data["machine"].values[0]
+cores_per_node = input_data["cores_per_node"].values[0]
 Lt  = input_data["Lt"].values[0]
 Ls  = input_data["Ls"].values[0]
 Rep = input_data["n_replicas"].values[0]
@@ -37,7 +25,7 @@ ifiles.copy_identical_files(folder,input_dir)
 ifiles.input_files_from_csv(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file"),infofile)
 ifiles.input_files_from_csv(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep"),infofile)
 
-if template_dir == "local_reproducible":
+if template_dir == "local":
     infile  = op.join(input_dir,"setup_llr_repeat_local.sh")
 else:
     infile  = op.join(input_dir,"setup_llr_repeat.sh")
