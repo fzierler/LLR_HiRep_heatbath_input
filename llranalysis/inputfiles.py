@@ -30,14 +30,14 @@ def predat_from_csv(folder,infofile):
     init_df = pd.read_csv(init_file)
     beta    = init_df['beta'] 
     S0      = init_df['S0']
-    pre_dat(beta,S0,V,umin,umax,nreplicas,predat)
+    Eks     = np.linspace(umin,umax, nreplicas)* 6 * V
+    pre_dat(beta,S0,Eks,predat)
     return
 
-def pre_dat(beta,S0,V,up_min,up_max,N_intervals,location):
+def pre_dat(beta,S0,Eks,location):
     fit = np.poly1d(np.polyfit(S0,beta,3))
-    Eks = np.linspace(up_min,up_max, N_intervals)* 6 * V
     aks = fit(Eks)
-    dE = (Eks[1]-Eks[0])*2
+    dE  = (Eks[1]-Eks[0])*2
     output = ''
     for ek,ak in zip(Eks,aks):
         output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'
@@ -58,41 +58,18 @@ def input_files_from_csv(infile,outfile,infofile):
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            if "GLB_T" in line:
-                print("GLB_T =",Lt,file=io)
-                continue
-            if "GLB_X" in line:
-                print("GLB_X =",Ls,file=io)  
-                continue
-            if "GLB_Y" in line:
-                print("GLB_Y =",Ls,file=io)
-                continue
-            if "GLB_Z" in line:
-                print("GLB_Z =",Ls,file=io)
-                continue
-            if "NP_X" in line:
-                print("NP_X =",PX,file=io)
-                continue
-            if "N_REP" in line:
-                print("N_REP =",nreplicas,file=io)
-                continue
-            if "llr:nmc" in line:
-                print("llr:nmc =",N_meas,file=io)
-                continue
-            if "llr:nth" in line:
-                print("llr:nth =",N_th,file=io)
-                continue
-            if "run_name=" in line:
-                print("run_name=sp4_",Lt,"x",Ls,"_",nreplicas,sep='',file=io)
-                continue
-            if "n_RM=" in line:
-                print("n_RM=",N_RM,sep='',file=io)
-                continue
-            if "n_NR=" in line:
-                print("n_NR=",N_NR,sep='',file=io)
-                continue
-            else:
-                print(line, end='',file=io)
+            line = re.sub(r'^.*GLB_T.*$', f'GLB_T = {Lt}', line)
+            line = re.sub(r'^.*GLB_X.*$', f'GLB_X = {Ls}', line)
+            line = re.sub(r'^.*GLB_Y.*$', f'GLB_Y = {Ls}', line)
+            line = re.sub(r'^.*GLB_Z.*$', f'GLB_Z = {Ls}', line)
+            line = re.sub(r'^.*NP_X.*$' , f'NP_X = {PX}', line)
+            line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
+            line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
+            line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
+            line = re.sub(r'^.*run_name.*$', f'run_name=sp4_{Lt}x{Ls}_{nreplicas}', line)
+            line = re.sub(r'^.*n_RM=.*$', f'n_RM={N_RM}', line)
+            line = re.sub(r'^.*n_NR=.*$', f'n_NR={N_NR}', line)
+            print(line, end='',file=io)
 
 def copy_identical_files(folder,basedir):
         # Note, fxa is copied assuming that the parameters for the fxa will not change
