@@ -15,11 +15,7 @@ needed to run the LLR for the heatbath updates. The layout is the following:
     Column 3: Energy interval width (aka dE/dS) 
 """
 def predat_from_csv(folder,infofile):
-    
-    os.makedirs(os.path.join(folder,"base"), exist_ok=True)
-    newinfofile = os.path.join(folder,"base","info.csv")
-    copyfile(infofile,newinfofile)
-    info_df = pd.read_csv(newinfofile)
+    info_df = pd.read_csv(infofile)
     predat = os.path.join(folder,"base","pre.dat")
 
     V = info_df['Lt'][0]*info_df['Ls'][0]**3

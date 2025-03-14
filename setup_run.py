@@ -3,6 +3,8 @@
 import llranalysis.inputfiles as ifiles
 import pandas as pd 
 import os.path as op
+import os
+from shutil import copyfile
 
 outdir     = "./output/"
 input_dir  = "./input/templates/"
@@ -22,10 +24,14 @@ cores_per_node = input_data["cores_per_node"].values[0]
 run_name       = get_run_name(input_data)
 folder         = op.join(outdir,run_name)
 
-ifiles.predat_from_csv(folder,infofile)
+os.makedirs(os.path.join(folder,"base"), exist_ok=True)
+newinfofile = os.path.join(folder,"base","info.csv")
+copyfile(infofile,newinfofile)
+
+ifiles.predat_from_csv(folder,newinfofile)
 ifiles.copy_identical_files(folder,input_dir)
-ifiles.input_files_from_csv(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file"),infofile)
-ifiles.input_files_from_csv(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep"),infofile)
-ifiles.input_files_from_csv(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),infofile)
+ifiles.input_files_from_csv(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file"),newinfofile)
+ifiles.input_files_from_csv(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep"),newinfofile)
+ifiles.input_files_from_csv(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),newinfofile)
 for name in bash_files:
-    ifiles.edit_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),infofile,cores_per_node)
+    ifiles.edit_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)
