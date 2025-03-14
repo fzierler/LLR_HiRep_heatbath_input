@@ -57,8 +57,8 @@ do
     sed -i "/llr:S0/c\llr:S0 = $E"            Rep_${i}/input_file
     sed -i "/llr:dS/c\llr:dS = ${de}"         Rep_${i}/input_file
     sed -i "/llr:starta/c\llr:starta = ${A}"  Rep_${i}/input_file
-    sed -i "/llr:Smin =/c\llr:Smin = ${Emin}" Rep_${i}/input_file
-    sed -i "/llr:Smax =/c\llr:Smax = ${Emax}" Rep_${i}/input_file
+    sed -i "/llr:Smin/c\llr:Smin = ${Emin}" Rep_${i}/input_file
+    sed -i "/llr:Smax/c\llr:Smax = ${Emax}" Rep_${i}/input_file
 
     i=`echo "${i}+1"|bc -l`
 
