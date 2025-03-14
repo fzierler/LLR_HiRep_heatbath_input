@@ -21,6 +21,8 @@ mv 0/ ../0_new/
 
 # We need to remove the output files beore comparing since they differ in the timings of the operations
 find .. -name out_0 | xargs rm
+# We further sort the input files so that we are insensitive to a reordering of the lines in them. 
+find .. -name "input_file*" | xargs -i sort {} -o {} 
 
 diff -rqwB ../0_new/ ../0_reference/
 #meld ../0_new/ ../0_reference/
