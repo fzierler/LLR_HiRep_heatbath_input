@@ -1,6 +1,7 @@
 rlx_level = 1
 rlx_start = new
 rlx_state = rand_state
+rlx_seed =
 
 //Logger levels (default = -1)
 log:default = -1
@@ -37,4 +38,6 @@ llr:Smax = 4651745.28000
 llr:N_nr = 1
 llr:db = 0.001
 llr:it_freq = 1
-
+llr:starta =
+llr:S0 =
+llr:dS =
