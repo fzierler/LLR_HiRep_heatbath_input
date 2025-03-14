@@ -48,26 +48,20 @@ Emax=${stringarray[0]}
 i=0
 while read -r line
 do
-    name="$line"
     stringarray=($line)
+    E=${stringarray[0]}
     A=${stringarray[1]}
-    A=`echo "${A}"|bc -l`
+    de=${stringarray[2]}
     mkdir Rep_${i}
     mkdir Rep_${i}/Cnfg
     cp $INPUTFILE Rep_${i}/input_file
-    RAN=`echo "${RANDOM}+10000"|bc -l`
-    echo " " >> Rep_${i}/input_file
-    echo "rlx_seed = $RAN" >> Rep_${i}/input_file
-    de=${stringarray[2]}
-    #E=`echo "${stringarray[0]} + ${de}*0.5" | bc -l`
-    E=${stringarray[0]}
+    echo "rlx_seed = ${RANDOM}" >> Rep_${i}/input_file
     echo "llr:S0 = $E" >> Rep_${i}/input_file
     echo "llr:dS = ${de}" >> Rep_${i}/input_file
     echo "llr:starta = ${A}" >> Rep_${i}/input_file
-    sed -i "/llr:Smin =/d" Rep_${i}/input_file
-    echo "llr:Smin = ${Emin}" >> Rep_${i}/input_file
-    sed -i "/llr:Smax =/d" Rep_${i}/input_file
-    echo "llr:Smax = ${Emax}" >> Rep_${i}/input_file
+    sed -i "/llr:Smin =/c\llr:Smin = ${Emin}" Rep_${i}/input_file
+    sed -i "/llr:Smax =/c\llr:Smax = ${Emax}" Rep_${i}/input_file
+
     i=`echo "${i}+1"|bc -l`
 
 done < "$FILEA"
