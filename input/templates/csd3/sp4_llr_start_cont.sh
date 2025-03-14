@@ -18,5 +18,5 @@ module load rhel8/default-icl              # REQUIRED - loads the basic environm
 module load gcc/11
 
 ###
-bash ../setup_replicas_start_cont.sh -r 19 -A pre.dat
+bash ../setup_replicas_start_cont.sh -r 19
 srun -n 76 ../../llr_hb

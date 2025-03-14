@@ -15,7 +15,7 @@ OPTIONS:
 EOF
 }
 r=
-while getopts “hr:A:” OPTION
+while getopts “hr:” OPTION
 do
      case $OPTION in
          h)
@@ -24,9 +24,6 @@ do
              ;;
          r)
              r=$OPTARG
-             ;;
-         A)
-             FILEA=$OPTARG
              ;;
          ?)
              usage
@@ -41,11 +38,8 @@ then
 fi
 
 M=$(ls Rep_0/input_file* | wc -l)
-i=0
-while read -r line
-do
-    stringarray=($line)
-    cp Rep_${i}/input_file Rep_${i}/input_file_${M}
+
+for (( i=0; i<$r; i+=1 )); do
     gsfile=$(ls Rep_${i}/run1* -t | head -1)
     gsfile=${gsfile#"Rep_${i}/"}
     RM_NUM=$(grep 'Robbins Monro sequence #' Rep_0/out_0 | tail -n 1 | grep -oP '(?<=#).*?(?=:)')
@@ -63,6 +57,7 @@ do
     E=$(grep "a_rho(0," Rep_$i/out_0 | tail -1 | grep -o -E '[0-9]+(\.[0-9]+)'| head -n 1)
     A=$(grep "a_rho(0," Rep_$i/out_0 | tail -1 | grep -o -E '[0-9]+(\.[0-9]+)'| tail -n 1) 
 
+    cp Rep_${i}/input_file Rep_${i}/input_file_${M}
     cp Rep_${i}/rand_state Rep_${i}/rand_state_${M}
     sed -i "/rlx_seed /c\rlx_seed = ${RANDOM}" Rep_${i}/input_file
     sed -i "/rlx_start /c\rlx_start = rand_state" Rep_${i}/input_file
@@ -75,6 +70,4 @@ do
     sed -i "/llr:N_nr =/c\llr:N_nr = 0" Rep_${i}/input_file
     sed -i "/llr:sfreq_fxa =/c\llr:sfreq_fxa = 100" Rep_${i}/input_file
 
-    i=`echo "${i}+1"|bc -l`
-
-done < "$FILEA"
+done

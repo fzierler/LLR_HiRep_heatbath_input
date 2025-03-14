@@ -15,7 +15,7 @@ OPTIONS:
 EOF
 }
 r=
-while getopts “hr:A:” OPTION
+while getopts “hr:” OPTION
 do
      case $OPTION in
          h)
@@ -24,9 +24,6 @@ do
              ;;
          r)
              r=$OPTARG
-             ;;
-         A)
-             FILEA=$OPTARG
              ;;
          ?)
              usage
@@ -41,10 +38,9 @@ then
 fi
 
 M=$(ls Rep_0/input_file* | wc -l)
-i=0
-while read -r line
-do
-    stringarray=($line)
+
+for (( i=0; i<$r; i+=1 )); do
+
     gsfile=$(ls Rep_${i}/run1* -t | head -1)
     gsfile=${gsfile#"Rep_${i}/"}
     RM_NUM=$(grep 'Robbins Monro sequence #' Rep_0/out_0 | tail -n 1 | grep -oP '(?<=#).*?(?=:)')
@@ -75,7 +71,4 @@ do
     sed -i "/llr:nfxa =/c\llr:nfxa = 0" Rep_${i}/input_file
     sed -i "/last conf = /c\last conf = 0" Rep_${i}/input_file
     sed -i "/llr:N_nr =/c\llr:N_nr = 1" Rep_${i}/input_file
-
-    i=`echo "${i}+1"|bc -l`
-
-done < "$FILEA"
+done
