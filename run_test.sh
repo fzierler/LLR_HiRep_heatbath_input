@@ -6,6 +6,9 @@ make
 cp ./llr_hb ../../
 cd ../../../
 
+cd output
+rm -rf ./LLR_4x4_8/
+cd -
 python setup_run.py
 cd output/LLR_4x4_8/
 
