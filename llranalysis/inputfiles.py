@@ -27,18 +27,16 @@ def predat_from_csv(folder,infofile):
     beta    = init_df['beta'] 
     S0      = init_df['S0']
     Eks     = np.linspace(umin,umax, nreplicas)* 6 * V
-    pre_dat(beta,S0,Eks,predat)
-    return
+    fit     = np.poly1d(np.polyfit(S0,beta,3))
+    aks     = fit(Eks)
+    dE      = (Eks[1]-Eks[0])*2
 
-def pre_dat(beta,S0,Eks,location):
-    fit = np.poly1d(np.polyfit(S0,beta,3))
-    aks = fit(Eks)
-    dE  = (Eks[1]-Eks[0])*2
-    #return Eks, aks, dE
-    output = ''
+    output  = ''
     for ek,ak in zip(Eks,aks):
         output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'
-    with open(location, 'w') as f:f.write(output)
+    with open(predat, 'w') as f:f.write(output)
+    
+    return Eks, aks, dE
     
 def setup_input_files(infile,outfile,infofile):
     info_df = pd.read_csv(infofile)
@@ -61,6 +59,14 @@ def setup_input_files(infile,outfile,infofile):
             line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
             line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
+            print(line, end='',file=io)
+
+def setup_energy_range(infile,outfile,Emin,Emax):
+    io = open(outfile, "w")
+    with open(infile, "r") as f:
+        for line in f:
+            line = re.sub(r'^.*llr:Smin.*$', f'llr:Smin = {Emin}', line)
+            line = re.sub(r'^.*llr:Smax.*$', f'llr:Smax = {Emax}', line)
             print(line, end='',file=io)
 
 def setup_bash_files(infile,outfile,infofile):
