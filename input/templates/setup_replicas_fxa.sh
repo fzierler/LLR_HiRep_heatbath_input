@@ -36,7 +36,6 @@ for (( i=0; i<$r; i+=1 )); do
 
     cp Rep_${i}/rand_state       Rep_${i}/rand_state_3
     cp Rep_${i}/input_file_cont  Rep_${i}/input_file_3
-    cp input_file_fxa_rep        Rep_${i}/input_file_fxa
 
     sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}"         Rep_${i}/input_file_fxa
     sed -i "/gauge start/c\gauge start = ${New_File}" Rep_${i}/input_file_fxa

@@ -45,8 +45,7 @@ do
     E=${stringarray[0]}
     A=${stringarray[1]}
     de=${stringarray[2]}
-    mkdir Rep_${i}
-    cp  "input_file_start_rep"                Rep_${i}/input_file_start
+    
     sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}" Rep_${i}/input_file_start
     sed -i "/llr:S0/c\llr:S0 = $E"            Rep_${i}/input_file_start
     sed -i "/llr:dS/c\llr:dS = ${de}"         Rep_${i}/input_file_start

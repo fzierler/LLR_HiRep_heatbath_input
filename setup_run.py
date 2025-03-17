@@ -30,7 +30,7 @@ os.makedirs(os.path.join(folder,"base"), exist_ok=True)
 newinfofile = os.path.join(folder,"base","info.csv")
 copyfile(infofile,newinfofile)
 
-Eks, aks, dE = ifiles.predat_from_csv(folder,newinfofile)
+Eks, aks, dE, nreplicas = ifiles.predat_from_csv(folder,newinfofile)
 
 for f in setup_files:
     src = os.path.join(input_dir,f)
@@ -39,9 +39,11 @@ for f in setup_files:
 
 for infile in input_files:
     ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base",infile)         ,newinfofile)
-    ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base",infile+"_tmp")  ,newinfofile)
-    ifiles.setup_energy_range(op.join(folder,"base",infile+"_tmp")     , op.join(folder,"base",infile+"_rep")  ,min(Eks),max(Eks))
-    os.remove(op.join(folder,"base",infile+"_tmp"))
+    for i in range(nreplicas):
+        os.makedirs(os.path.join(folder,"base",f"Rep_{i}"), exist_ok=True)
+        ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base",f"Rep_{i}","tmp")  ,newinfofile)
+        ifiles.setup_energy_range(op.join(folder,"base",f"Rep_{i}","tmp")     , op.join(folder,"base",f"Rep_{i}",infile)  ,min(Eks),max(Eks))
+        os.remove(op.join(folder,"base",f"Rep_{i}","tmp"))
 
 for name in bash_files:
     ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)

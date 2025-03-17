@@ -36,7 +36,7 @@ def predat_from_csv(folder,infofile):
         output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'
     with open(predat, 'w') as f:f.write(output)
     
-    return Eks, aks, dE
+    return Eks, aks, dE, nreplicas
     
 def setup_input_files(infile,outfile,infofile):
     info_df = pd.read_csv(infofile)
