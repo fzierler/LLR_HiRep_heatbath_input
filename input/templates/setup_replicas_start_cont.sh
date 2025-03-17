@@ -40,7 +40,7 @@ for (( i=0; i<$r; i+=1 )); do
     # make a copy of the old input file for preservation
     cp Rep_${i}/rand_state       Rep_${i}/rand_state_1
     cp Rep_${i}/input_file_start Rep_${i}/input_file_1
-    cp Rep_${i}/input_file_start Rep_${i}/input_file_start_cont
+    cp input_file_rep_start_cont Rep_${i}/input_file_start_cont
 
     sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}"         Rep_${i}/input_file_start_cont
     sed -i "/gauge start/c\gauge start = ${New_File}" Rep_${i}/input_file_start_cont

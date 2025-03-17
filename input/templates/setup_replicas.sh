@@ -1,6 +1,5 @@
 #!/bin/bash
 # Argument = -R NReplica
-INPUTFILE="input_file_rep_start"
 usage()
 {
 cat << EOF
@@ -47,7 +46,7 @@ do
     A=${stringarray[1]}
     de=${stringarray[2]}
     mkdir Rep_${i}
-    cp  $INPUTFILE                            Rep_${i}/input_file_start
+    cp  "input_file_rep_start"                Rep_${i}/input_file_start
     sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}" Rep_${i}/input_file_start
     sed -i "/llr:S0/c\llr:S0 = $E"            Rep_${i}/input_file_start
     sed -i "/llr:dS/c\llr:dS = ${de}"         Rep_${i}/input_file_start
