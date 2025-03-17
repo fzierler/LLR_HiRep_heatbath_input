@@ -86,14 +86,6 @@ def setup_bash_files(infile,outfile,infofile):
             line = re.sub(r'^.*n_NR=.*$', f'n_NR={N_NR}', line)
             print(line, end='',file=io)
 
-def copy_identical_files(folder,basedir):
-        # Note, fxa is copied assuming that the parameters for the fxa will not change
-        for f in ["list_configs.sh","setup_replicas.sh","setup_replicas_start_cont.sh","setup_replicas_cont.sh","setup_replicas_fxa.sh"]:
-            src = os.path.join(basedir,f)
-            dst = os.path.join(folder ,f)
-            copyfile(src,dst)
-        return 
-
 # define ceil division in analogy to floor division
 def ceildiv(a, b):
     return -(a // -b)
