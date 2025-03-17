@@ -19,4 +19,4 @@ module load gcc/11
 
 ###
 bash ../setup_replicas_start_cont.sh -r 19
-srun -n 76 ../../llr_hb
+srun -n 76 ../../llr_hb -i input_file_start_cont

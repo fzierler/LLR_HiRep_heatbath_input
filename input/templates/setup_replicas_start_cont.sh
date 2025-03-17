@@ -16,7 +16,7 @@ then
      exit 1
 fi
 
-M=$(ls Rep_0/input_file* | wc -l)
+M=$(ls Rep_0/input_file_* | grep input_file_[0-9]* | wc -l)
 
 for (( i=0; i<$r; i+=1 )); do
 
@@ -38,17 +38,18 @@ for (( i=0; i<$r; i+=1 )); do
     A=$(grep "a_rho(0," Rep_$i/out_0 | tail -1 | grep -o -E '[0-9]+(\.[0-9]+)'| tail -n 1) 
 
     # make a copy of the old input file for preservation
-    cp Rep_${i}/input_file Rep_${i}/input_file_${M}
-    cp Rep_${i}/rand_state Rep_${i}/rand_state_${M}
+    cp Rep_${i}/rand_state       Rep_${i}/rand_state_1
+    cp Rep_${i}/input_file_start Rep_${i}/input_file_1
+    cp Rep_${i}/input_file_start Rep_${i}/input_file_start_cont
 
-    sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}"         Rep_${i}/input_file
-    sed -i "/gauge start/c\gauge start = ${New_File}" Rep_${i}/input_file
-    sed -i "/llr:S0/c\llr:S0 = $E"                    Rep_${i}/input_file
-    sed -i "/llr:dS/c\llr:dS = ${de}"                 Rep_${i}/input_file
-    sed -i "/llr:starta/c\llr:starta = ${A}"          Rep_${i}/input_file
+    sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}"         Rep_${i}/input_file_start_cont
+    sed -i "/gauge start/c\gauge start = ${New_File}" Rep_${i}/input_file_start_cont
+    sed -i "/llr:S0/c\llr:S0 = $E"                    Rep_${i}/input_file_start_cont
+    sed -i "/llr:dS/c\llr:dS = ${de}"                 Rep_${i}/input_file_start_cont
+    sed -i "/llr:starta/c\llr:starta = ${A}"          Rep_${i}/input_file_start_cont
     # Everything below does never change
-    sed -i "/llr:nfxa/c\llr:nfxa = 0"                 Rep_${i}/input_file
-    sed -i "/last conf/c\last conf = 0"               Rep_${i}/input_file
-    sed -i "/llr:N_nr/c\llr:N_nr = 1"                 Rep_${i}/input_file
-    sed -i "/rlx_start/c\rlx_start = rand_state"      Rep_${i}/input_file
+    sed -i "/llr:nfxa/c\llr:nfxa = 0"                 Rep_${i}/input_file_start_cont
+    sed -i "/last conf/c\last conf = 0"               Rep_${i}/input_file_start_cont
+    sed -i "/llr:N_nr/c\llr:N_nr = 1"                 Rep_${i}/input_file_start_cont
+    sed -i "/rlx_start/c\rlx_start = rand_state"      Rep_${i}/input_file_start_cont
 done

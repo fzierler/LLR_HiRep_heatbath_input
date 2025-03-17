@@ -34,6 +34,7 @@ def pre_dat(beta,S0,Eks,location):
     fit = np.poly1d(np.polyfit(S0,beta,3))
     aks = fit(Eks)
     dE  = (Eks[1]-Eks[0])*2
+    #return Eks, aks, dE
     output = ''
     for ek,ak in zip(Eks,aks):
         output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'

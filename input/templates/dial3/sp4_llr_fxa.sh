@@ -18,4 +18,4 @@ module load openmpi/4.0.5
 
 ###
 bash ../setup_replicas_fxa.sh -r 19
-srun -n 76 ../../llr_hb
+srun -n 76 ../../llr_hb -i input_file_fxa

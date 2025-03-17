@@ -1,6 +1,6 @@
 #!/bin/bash
 # Argument = -R NReplica
-INPUTFILE="input_file_rep"
+INPUTFILE="input_file_rep_start"
 usage()
 {
 cat << EOF
@@ -52,13 +52,13 @@ do
     A=${stringarray[1]}
     de=${stringarray[2]}
     mkdir Rep_${i}
-    cp $INPUTFILE Rep_${i}/input_file
-    sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}" Rep_${i}/input_file
-    sed -i "/llr:S0/c\llr:S0 = $E"            Rep_${i}/input_file
-    sed -i "/llr:dS/c\llr:dS = ${de}"         Rep_${i}/input_file
-    sed -i "/llr:starta/c\llr:starta = ${A}"  Rep_${i}/input_file
-    sed -i "/llr:Smin/c\llr:Smin = ${Emin}"   Rep_${i}/input_file
-    sed -i "/llr:Smax/c\llr:Smax = ${Emax}"   Rep_${i}/input_file
+    cp  $INPUTFILE                            Rep_${i}/input_file_start
+    sed -i "/rlx_seed/c\rlx_seed = ${RANDOM}" Rep_${i}/input_file_start
+    sed -i "/llr:S0/c\llr:S0 = $E"            Rep_${i}/input_file_start
+    sed -i "/llr:dS/c\llr:dS = ${de}"         Rep_${i}/input_file_start
+    sed -i "/llr:starta/c\llr:starta = ${A}"  Rep_${i}/input_file_start
+    sed -i "/llr:Smin/c\llr:Smin = ${Emin}"   Rep_${i}/input_file_start
+    sed -i "/llr:Smax/c\llr:Smax = ${Emax}"   Rep_${i}/input_file_start
 
     i=`echo "${i}+1"|bc -l`
 
