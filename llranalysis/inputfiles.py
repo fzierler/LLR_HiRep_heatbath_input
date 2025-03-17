@@ -40,13 +40,11 @@ def pre_dat(beta,S0,Eks,location):
         output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'
     with open(location, 'w') as f:f.write(output)
     
-def input_files_from_csv(infile,outfile,infofile):
+def setup_input_files(infile,outfile,infofile):
     info_df = pd.read_csv(infofile)
     
     nreplicas = info_df['n_replicas'][0]
     N_meas = info_df['N_meas'][0]
-    N_NR = info_df['N_NR'][0]
-    N_RM = info_df['N_RM'][0]
     N_th = info_df['N_th'][0]
     Lt = info_df['Lt'][0] # temporal length 
     Ls = info_df['Ls'][0] # spatial length
@@ -63,6 +61,20 @@ def input_files_from_csv(infile,outfile,infofile):
             line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
             line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
+            print(line, end='',file=io)
+
+def setup_bash_files(infile,outfile,infofile):
+    info_df = pd.read_csv(infofile)
+    
+    nreplicas = info_df['n_replicas'][0]
+    N_NR = info_df['N_NR'][0]
+    N_RM = info_df['N_RM'][0]
+    Lt = info_df['Lt'][0] # temporal length 
+    Ls = info_df['Ls'][0] # spatial length
+
+    io = open(outfile, "w")
+    with open(infile, "r") as f:
+        for line in f:
             line = re.sub(r'^.*run_name.*$', f'run_name=sp4_{Lt}x{Ls}_{nreplicas}', line)
             line = re.sub(r'^.*n_RM=.*$', f'n_RM={N_RM}', line)
             line = re.sub(r'^.*n_NR=.*$', f'n_NR={N_NR}', line)
@@ -80,7 +92,7 @@ def copy_identical_files(folder,basedir):
 def ceildiv(a, b):
     return -(a // -b)
 
-def edit_batch_files(infile,outfile,infofile,cores_per_node):
+def setup_batch_files(infile,outfile,infofile,cores_per_node):
     info_df = pd.read_csv(infofile)
     nreplicas = info_df['n_replicas'][0]
     PX = info_df['PX'][0] # domain decomposition
