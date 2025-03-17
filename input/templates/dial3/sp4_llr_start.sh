@@ -17,5 +17,5 @@ module load gcc/10.3.0
 module load openmpi/4.0.5
 
 ### 
-bash ../setup_replicas.sh -r 19 -A pre.dat
+bash ../setup_replicas_start.sh -r 19 -A pre.dat
 srun -n 76 ../../llr_hb -i input_file_start
