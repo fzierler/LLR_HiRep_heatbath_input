@@ -16,8 +16,6 @@ then
      exit 1
 fi
 
-M=$(ls Rep_0/input_file_* | grep input_file_[0-9]* | wc -l)
-
 for (( i=0; i<$r; i+=1 )); do
     gsfile=$(ls Rep_${i}/run1* -t | head -1)
     gsfile=${gsfile#"Rep_${i}/"}
