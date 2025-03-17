@@ -9,7 +9,9 @@ from shutil import copyfile
 outdir     = "./output/"
 input_dir  = "./input/templates/"
 infofile   = "./input/local_tests.csv"
-bash_files = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
+
+bash_files  = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
+input_files = ["input_file_start", "input_file_start_cont", "input_file_cont", "input_file_fxa"]
 
 ## create a suitable name for the run:
 def get_run_name(input_data):
@@ -31,18 +33,11 @@ copyfile(infofile,newinfofile)
 Eks, aks, dE = ifiles.predat_from_csv(folder,newinfofile)
 ifiles.copy_identical_files(folder,input_dir)
 
-ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file_start")         ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file_start_cont")    ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file_cont")          ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base","input_file_fxa")           ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep_start_tmp")     ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep_start_cont_tmp"),newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep_cont_tmp")      ,newinfofile)
-ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base","input_file_rep_fxa_tmp")       ,newinfofile)
-ifiles.setup_energy_range(op.join(folder,"base","input_file_rep_start_tmp")     , op.join(folder,"base","input_file_rep_start")     ,min(Eks),max(Eks))
-ifiles.setup_energy_range(op.join(folder,"base","input_file_rep_start_cont_tmp"), op.join(folder,"base","input_file_rep_start_cont"),min(Eks),max(Eks))
-ifiles.setup_energy_range(op.join(folder,"base","input_file_rep_cont_tmp")      , op.join(folder,"base","input_file_rep_cont")      ,min(Eks),max(Eks))
-ifiles.setup_energy_range(op.join(folder,"base","input_file_rep_fxa_tmp")       , op.join(folder,"base","input_file_rep_fxa")       ,min(Eks),max(Eks))
+for infile in input_files:
+    ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base",infile)         ,newinfofile)
+    ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base",infile+"_tmp")  ,newinfofile)
+    ifiles.setup_energy_range(op.join(folder,"base",infile+"_tmp")     , op.join(folder,"base",infile+"_rep")  ,min(Eks),max(Eks))
+    os.remove(op.join(folder,"base",infile+"_tmp"))
 
 ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),newinfofile)
 for name in bash_files:
