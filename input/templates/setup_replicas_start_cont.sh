@@ -1,6 +1,4 @@
 #!/bin/bash
-# Argument = -R NReplica
-
 r=
 while getopts “r:” OPTION
 do

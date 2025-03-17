@@ -1,6 +1,4 @@
 #!/bin/bash
-# Argument = -R NReplica
-
 r=
 while getopts “r:” OPTION
 do
@@ -17,6 +15,7 @@ then
 fi
 
 for (( i=0; i<$r; i+=1 )); do
+
     gsfile=$(ls Rep_${i}/run1* -t | head -1)
     gsfile=${gsfile#"Rep_${i}/"}
     RM_NUM=$(grep 'Robbins Monro sequence #' Rep_0/out_0 | tail -n 1 | grep -oP '(?<=#).*?(?=:)')
