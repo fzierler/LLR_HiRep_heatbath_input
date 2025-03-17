@@ -14,9 +14,8 @@ needed to run the LLR for the heatbath updates. The layout is the following:
     Column 2: Initial value of a_0
     Column 3: Energy interval width (aka dE/dS) 
 """
-def predat_from_csv(folder,infofile):
+def initial_an(infofile):
     info_df = pd.read_csv(infofile)
-    predat = os.path.join(folder,"base","pre.dat")
 
     V = info_df['Lt'][0]*info_df['Ls'][0]**3
     umin, umax = info_df['umin'][0], info_df['umax'][0]
@@ -31,11 +30,6 @@ def predat_from_csv(folder,infofile):
     aks     = fit(Eks)
     dE      = (Eks[1]-Eks[0])*2
 
-    output  = ''
-    for ek,ak in zip(Eks,aks):
-        output+=f'{ek:.5f} {ak:.5f} {dE:.5f}\n'
-    with open(predat, 'w') as f:f.write(output)
-    
     return Eks, aks, dE, nreplicas
     
 def setup_input_files(infile,outfile,infofile):
@@ -61,12 +55,15 @@ def setup_input_files(infile,outfile,infofile):
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
             print(line, end='',file=io)
 
-def setup_energy_range(infile,outfile,Emin,Emax):
+def setup_initial_an(infile,outfile,Emin,Emax,S0,dS,a):
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'^.*llr:Smin.*$', f'llr:Smin = {Emin}', line)
-            line = re.sub(r'^.*llr:Smax.*$', f'llr:Smax = {Emax}', line)
+            line = re.sub(r'^.*llr:S0.*$'    , f'llr:S0 = {S0:.5f}', line)
+            line = re.sub(r'^.*llr:dS.*$'    , f'llr:dS = {dS:.5f}', line)
+            line = re.sub(r'^.*llr:starta.*$', f'llr:starta = {a:.5f}', line)
+            line = re.sub(r'^.*llr:Smin.*$'  , f'llr:Smin = {Emin:.5f}', line)
+            line = re.sub(r'^.*llr:Smax.*$'  , f'llr:Smax = {Emax:.5f}', line)
             print(line, end='',file=io)
 
 def setup_bash_files(infile,outfile,infofile):

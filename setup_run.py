@@ -30,7 +30,7 @@ os.makedirs(os.path.join(folder,"base"), exist_ok=True)
 newinfofile = os.path.join(folder,"base","info.csv")
 copyfile(infofile,newinfofile)
 
-Eks, aks, dE, nreplicas = ifiles.predat_from_csv(folder,newinfofile)
+Eks, aks, dE, nreplicas = ifiles.initial_an(newinfofile)
 
 for f in setup_files:
     src = os.path.join(input_dir,f)
@@ -42,7 +42,7 @@ for infile in input_files:
     for i in range(nreplicas):
         os.makedirs(os.path.join(folder,"base",f"Rep_{i}"), exist_ok=True)
         ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base",f"Rep_{i}","tmp")  ,newinfofile)
-        ifiles.setup_energy_range(op.join(folder,"base",f"Rep_{i}","tmp")     , op.join(folder,"base",f"Rep_{i}",infile)  ,min(Eks),max(Eks))
+        ifiles.setup_initial_an(op.join(folder,"base",f"Rep_{i}","tmp")  , op.join(folder,"base",f"Rep_{i}",infile),min(Eks),max(Eks),Eks[i],dE,aks[i])
         os.remove(op.join(folder,"base",f"Rep_{i}","tmp"))
 
 for name in bash_files:
