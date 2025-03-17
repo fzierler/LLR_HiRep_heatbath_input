@@ -3,9 +3,8 @@
 
 import pandas as pd
 import numpy as np
-import os.path
 import re
-from shutil import copyfile
+from shutil import move
 
 """
 This function generates a three-column csv file that contains the replica-specfic input quantities
@@ -31,7 +30,12 @@ def initial_an(infofile):
     dE      = (Eks[1]-Eks[0])*2
 
     return Eks, aks, dE, nreplicas
-    
+
+def setup_input_files_inplace(infile,infofile):
+    tmpfile = "tmp"
+    setup_input_files(infile,tmpfile,infofile)
+    move(tmpfile, infile)
+
 def setup_input_files(infile,outfile,infofile):
     info_df = pd.read_csv(infofile)
     
@@ -54,6 +58,11 @@ def setup_input_files(infile,outfile,infofile):
             line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
             print(line, end='',file=io)
+
+def setup_initial_an_inplace(infile,Emin,Emax,S0,dS,a):
+    tmpfile = "tmp"
+    setup_initial_an(infile,tmpfile,Emin,Emax,S0,dS,a)
+    move(tmpfile, infile)
 
 def setup_initial_an(infile,outfile,Emin,Emax,S0,dS,a):
     io = open(outfile, "w")

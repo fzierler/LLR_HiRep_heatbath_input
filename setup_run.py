@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-import llranalysis.inputfiles as ifiles
+import llrinput.inputfiles as ifiles
 import pandas as pd 
 import os.path as op
 import os
@@ -40,10 +40,12 @@ for f in setup_files:
 for infile in input_files:
     ifiles.setup_input_files(op.join(input_dir,"base","input_file"),     op.join(folder,"base",infile)         ,newinfofile)
     for i in range(nreplicas):
-        os.makedirs(os.path.join(folder,"base",f"Rep_{i}"), exist_ok=True)
-        ifiles.setup_input_files(op.join(input_dir,"base","input_file_rep"), op.join(folder,"base",f"Rep_{i}","tmp")  ,newinfofile)
-        ifiles.setup_initial_an(op.join(folder,"base",f"Rep_{i}","tmp")  , op.join(folder,"base",f"Rep_{i}",infile),min(Eks),max(Eks),Eks[i],dE,aks[i])
-        os.remove(op.join(folder,"base",f"Rep_{i}","tmp"))
+        replica_dir = os.path.join(folder,"base",f"Rep_{i}")
+        in_replica = op.join(input_dir,"base","input_file_rep")
+        out_replica  = op.join(folder,"base",f"Rep_{i}",infile)
+        os.makedirs(replica_dir,exist_ok=True)
+        ifiles.setup_input_files(in_replica, out_replica, newinfofile)
+        ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
 
 for name in bash_files:
     ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)
