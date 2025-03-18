@@ -74,7 +74,7 @@ def setup_initial_an(infile,outfile,Emin,Emax,S0,dS,a):
             line = re.sub(r'^.*llr:starta.*$', f'llr:starta = {a:.5f}', line)
             line = re.sub(r'^.*llr:Smin.*$'  , f'llr:Smin = {Emin:.5f}', line)
             line = re.sub(r'^.*llr:Smax.*$'  , f'llr:Smax = {Emax:.5f}', line)
-            line = re.sub(r'^.*llr:rlx_seed.*$'  , f'rlx_seed = ${random.randint(1,2^32-1)}', line)
+            line = re.sub(r'^.*rlx_seed.*$'  , f'rlx_seed = {random.randint(1,2**32-1)}', line)
             print(line, end='',file=io)
 
 def setup_bash_files(infile,outfile,infofile):
