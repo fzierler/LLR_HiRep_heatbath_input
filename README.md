@@ -112,4 +112,5 @@ See the document `Notes_on_HiRep_with_replica_exchanges.md`
 2. Remove hard-coded project number and email address.
 3. Remove hard-coded fixed-$a_n$ parameters
 4. Use input parameters marked as "unused" above
-5. Remove the need to rename the configurations before performing RM steps. Instead, we should be able to pass the current iteration number required for the RM update directly to HiRep. This is supported, but this number is currently overwritten with the configuration number in HiRep.    
+5. Remove the need to rename the configurations before performing RM steps. Instead, we should be able to pass the current iteration number required for the RM update directly to HiRep. This is supported, but this number is currently overwritten with the configuration number in HiRep.
+6. Add an option to get the initial $a_n$ from an existing LLR runs
