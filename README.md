@@ -84,7 +84,7 @@ Currently, our project number (dp208) and my email (fabian.zierler@swansea.ac.uk
 - `umax`: Maximal value of the plaquette in this run
 - `N_th`: Number of initial thermalization steps
 - `N_meas`: Number of measurement steps in an NR/RM update
-- `Nfs_swaps`: Frequency of swaps in fixed-$a_n$ calculation
+- `Nfs_swaps`: Frequency of swaps in fixed-$a_n$ calculation (unused)
 - `Nfa_meas` : Number of measurement steps in fixed-$a_n$ calculation (unused)
 - `PX`: Domain decomposition in the spatial $x$-direction. Set to `1` for no domain decomposition.
 - `an_file`: Input file for the initial $a_n$ values. Should be a csv with the first column denoting $a_n$ or $\beta$ and the second one the corresponding average plaquette. See `input/data/` for examples obtained using importance sampling. An interpolation between the provided data points is used.
@@ -112,3 +112,4 @@ See the document `Notes_on_HiRep_with_replica_exchanges.md`
 2. Remove hard-coded project number and email address.
 3. Remove hard-coded fixed-$a_n$ parameters
 4. Use input parameters marked as "unused" above
+5. Remove the need to rename the configurations before performing RM steps. Instead, we should be able to pass the current iteration number required for the RM update directly to HiRep. This is supported, but this number is currently overwritten with the configuration number in HiRep.    
