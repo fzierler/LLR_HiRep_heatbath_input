@@ -1,2 +1,2 @@
 Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,machine,cores_per_node,N_NR_per_step,N_RM_per_step,
-4,4,8,1,2,2,0.568,0.576,300,700,50,100,1,input/data/Nt4_std_beta_vs_S0.txt,local,8,1,1
+4,4,8,1,2,2,0.568,0.576,300,700,50,100,1,input/data/Nt4_std_beta_vs_S0.txt,local,8,2,1
