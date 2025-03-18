@@ -24,7 +24,8 @@ def initial_an(infofile):
 
     init_df = pd.read_csv(init_file)
     beta    = init_df['beta'] 
-    S0      = init_df['S0']
+    plaq    = init_df['plaq']
+    S0      = plaq * 6 * V
     Eks     = np.linspace(umin,umax, nreplicas)* 6 * V
     fit     = np.poly1d(np.polyfit(S0,beta,3))
     aks     = fit(Eks)
