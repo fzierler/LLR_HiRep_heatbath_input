@@ -51,4 +51,17 @@ for (( i=0; i<$r; i+=1 )); do
     sed -i "/llr:dS/c\llr:dS = ${de}"                 Rep_${i}/$FILEA
     sed -i "/llr:starta/c\llr:starta = ${A}"          Rep_${i}/$FILEA
 
+    # remove old configuration files
+    # check if all files are of the same size
+    same_size=$(readlink -f Rep_${i}/run1* | xargs du | awk '{print $1}' | uniq -u | wc -l)
+    # same_size is equal to zero if all files are of the same size
+    # only if this is the case this script will remove old configurations
+    if [ $same_size -eq 0 ]; then
+        readlink -f Rep_${i}/run1* >> tmp_list
+        if [ $(wc -l tmp_list | awk '{print $1}') -gt 1 ]; then
+            cat tmp_list | sort -V | head -n -1 | xargs rm
+        fi
+	rm tmp_list
+    fi
+
 done
