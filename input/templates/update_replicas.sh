@@ -26,6 +26,10 @@ for (( i=0; i<$r; i+=1 )); do
 
     gsfile=$(ls Rep_${i}/run1* -t | head -1)
     gsfile=${gsfile#"Rep_${i}/"}
+    # This currently renames the configurations when no RM steps have been performed yet.
+    # In particular, it overwrites trajectories that have only received NR updates so far.
+    # David told me that this is required for getting the weight in the RM steps right. 
+    # I think there is an option to fix this in HiRep.
     RM_NUM=$(grep 'Robbins Monro sequence #' Rep_0/out_0 | tail -n 1 | grep -oP '(?<=#).*?(?=:)')
     if ! [[ -n $RM_NUM ]]
     then
