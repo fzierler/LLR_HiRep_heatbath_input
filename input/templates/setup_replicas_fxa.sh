@@ -38,11 +38,5 @@ for (( i=0; i<$r; i+=1 )); do
     sed -i "/llr:S0/c\llr:S0 = $E"                    Rep_${i}/input_file_fxa
     sed -i "/llr:dS/c\llr:dS = ${de}"                 Rep_${i}/input_file_fxa
     sed -i "/llr:starta/c\llr:starta = ${A}"          Rep_${i}/input_file_fxa
-    # Everything below does never change
-    sed -i "/rlx_start/c\rlx_start = new"         Rep_${i}/input_file_fxa
-    sed -i "/llr:nfxa/c\llr:nfxa = 50"            Rep_${i}/input_file_fxa
-    sed -i "/last conf/c\last conf = +0"          Rep_${i}/input_file_fxa
-    sed -i "/llr:N_nr/c\llr:N_nr = 0"             Rep_${i}/input_file_fxa
-    sed -i "/llr:sfreq_fxa/c\llr:sfreq_fxa = 100" Rep_${i}/input_file_fxa
 
 done

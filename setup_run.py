@@ -31,6 +31,7 @@ newinfofile = os.path.join(folder,"base","info.csv")
 copyfile(infofile,newinfofile)
 
 Eks, aks, dE, nreplicas = ifiles.initial_an(newinfofile)
+ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),newinfofile)
 
 for f in setup_files:
     src = os.path.join(input_dir,f)
@@ -47,7 +48,10 @@ for infile in input_files:
         ifiles.setup_input_files(in_replica, out_replica, newinfofile)
         ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
 
+for i in range(nreplicas):
+    ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
+    ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_start_cont"))
+    ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_cont"))
+
 for name in bash_files:
     ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)
-
-ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),newinfofile)

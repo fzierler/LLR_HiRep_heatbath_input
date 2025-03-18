@@ -112,3 +112,46 @@ def setup_batch_files(infile,outfile,infofile,cores_per_node):
             line = re.sub(r'-n\s+[0-9]+',"-n "+str(tasks),line)
             line = re.sub(r'-r\s+[0-9]+',"-r "+str(nreplicas),line)
             print(line,end='',file=io)
+
+def setup_fxa_input_inplace(infile):
+    tmpfile = "tmp"
+    setup_fxa_input(infile,tmpfile)
+    move(tmpfile, infile)
+
+def setup_fxa_input(infile,outfile):
+    io = open(outfile, "w")
+    with open(infile, "r") as f:
+        for line in f:
+            line = re.sub(r'^.*llr:nfxa.*$'     , 'llr:nfxa=50', line)
+            line = re.sub(r'^.*last conf.*$'    , 'last conf=+0', line)
+            line = re.sub(r'^.*llr:N_nr.*$'     , 'llr:N_nr=0', line)
+            line = re.sub(r'^.*llr:sfreq_fxa.*$', 'llr:sfreq_fxa=100', line)
+            print(line,end='',file=io)
+
+def setup_nr_input_inplace(infile):
+    tmpfile = "tmp"
+    setup_nr_input(infile,tmpfile)
+    move(tmpfile, infile)
+
+def setup_nr_input(infile,outfile):
+    io = open(outfile, "w")
+    with open(infile, "r") as f:
+        for line in f:
+            line = re.sub(r'^.*llr:nfxa.*$' ,'llr:nfxa=0', line)
+            line = re.sub(r'^.*last conf.*$','last conf=0', line)
+            line = re.sub(r'^.*llr:N_nr.*$' ,'llr:N_nr=1', line)
+            print(line,end='',file=io)
+
+def setup_rm_input_inplace(infile):
+    tmpfile = "tmp"
+    setup_rm_input(infile,tmpfile)
+    move(tmpfile, infile)
+
+def setup_rm_input(infile,outfile):
+    io = open(outfile, "w")
+    with open(infile, "r") as f:
+        for line in f:
+            line = re.sub(r'^.*llr:nfxa.*$' ,'llr:nfxa=0', line)
+            line = re.sub(r'^.*last conf.*$','last conf=+1', line)
+            line = re.sub(r'^.*llr:N_nr.*$' ,'llr:N_nr=0', line)
+            print(line,end='',file=io)
