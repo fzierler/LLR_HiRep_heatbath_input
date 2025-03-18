@@ -114,3 +114,4 @@ See the document `Notes_on_HiRep_with_replica_exchanges.md`
 4. Use input parameters marked as "unused" above
 5. Remove the need to rename the configurations before performing RM steps. Instead, we should be able to pass the current iteration number required for the RM update directly to HiRep. This is supported, but this number is currently overwritten with the configuration number in HiRep.
 6. Add an option to get the initial $a_n$ from an existing LLR runs
+7. Have separate output files for every slurm (array) job. (This should help in removing data from incomplete runs due to cluster failures)
