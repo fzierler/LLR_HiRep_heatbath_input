@@ -51,8 +51,8 @@ for infile in input_files:
 
 for i in range(nreplicas):
     ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
-    ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_start_cont"))
-    ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_cont"))
+    ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_start_cont"),infofile)
+    ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_cont"),infofile)
 
 for name in bash_files:
     ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)

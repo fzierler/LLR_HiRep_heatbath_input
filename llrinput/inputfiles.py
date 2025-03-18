@@ -130,30 +130,34 @@ def setup_fxa_input(infile,outfile):
             line = re.sub(r'^.*llr:sfreq_fxa.*$', 'llr:sfreq_fxa=100', line)
             print(line,end='',file=io)
 
-def setup_nr_input_inplace(infile):
+def setup_nr_input_inplace(infile,infofile):
     tmpfile = "tmp"
-    setup_nr_input(infile,tmpfile)
+    setup_nr_input(infile,tmpfile,infofile)
     move(tmpfile, infile)
 
-def setup_nr_input(infile,outfile):
+def setup_nr_input(infile,outfile,infofile):
+    info_df = pd.read_csv(infofile)
+    n_nr_per_step = info_df['N_NR_per_step'][0]
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'^.*llr:nfxa.*$' ,'llr:nfxa=0', line)
-            line = re.sub(r'^.*last conf.*$','last conf=0', line)
-            line = re.sub(r'^.*llr:N_nr.*$' ,'llr:N_nr=1', line)
+            line = re.sub(r'^.*llr:nfxa.*$' , 'llr:nfxa=0', line)
+            line = re.sub(r'^.*last conf.*$', 'last conf=0', line)
+            line = re.sub(r'^.*llr:N_nr.*$' ,f'llr:N_nr={n_nr_per_step}', line)
             print(line,end='',file=io)
 
-def setup_rm_input_inplace(infile):
+def setup_rm_input_inplace(infile,infofile):
     tmpfile = "tmp"
-    setup_rm_input(infile,tmpfile)
+    setup_rm_input(infile,tmpfile,infofile)
     move(tmpfile, infile)
 
-def setup_rm_input(infile,outfile):
+def setup_rm_input(infile,outfile,infofile):
+    info_df = pd.read_csv(infofile)
+    n_rm_per_step = info_df['N_RM_per_step'][0]
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'^.*llr:nfxa.*$' ,'llr:nfxa=0', line)
-            line = re.sub(r'^.*last conf.*$','last conf=+1', line)
-            line = re.sub(r'^.*llr:N_nr.*$' ,'llr:N_nr=0', line)
+            line = re.sub(r'^.*llr:nfxa.*$' , 'llr:nfxa=0', line)
+            line = re.sub(r'^.*last conf.*$',f'last conf=+{n_rm_per_step}', line)
+            line = re.sub(r'^.*llr:N_nr.*$' , 'llr:N_nr=0', line)
             print(line,end='',file=io)
