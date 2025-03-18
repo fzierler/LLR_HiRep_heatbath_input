@@ -12,7 +12,7 @@ infofile   = "./input/local_tests.csv"
 
 bash_files  = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
 input_files = ["input_file_start", "input_file_start_cont", "input_file_cont", "input_file_fxa"]
-setup_files = ["list_configs.sh","setup_replicas_start.sh","setup_replicas_start_cont.sh","update_replicas.sh","setup_replicas_fxa.sh"]
+setup_files = ["list_configs.sh","setup_replicas_start.sh","update_replicas.sh"]
 ## create a suitable name for the run:
 def get_run_name(input_data):
     Lt  = input_data["Lt"].values[0]
