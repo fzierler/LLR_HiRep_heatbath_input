@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import re
 import random
+import scipy
 from shutil import move
 
 """
@@ -27,11 +28,20 @@ def initial_an(infofile):
     plaq    = init_df['plaq']
     S0      = plaq * 6 * V
     Eks     = np.linspace(umin,umax, nreplicas)* 6 * V
-    fit     = np.poly1d(np.polyfit(S0,beta,3))
-    aks     = fit(Eks)
+    aks     = fit_initial_an(S0,beta,Eks)
     dE      = (Eks[1]-Eks[0])*2
 
     return Eks, aks, dE, nreplicas
+
+def fit_initial_an(S0,beta,Eks):
+    fit = np.poly1d(np.polyfit(S0,beta,3))
+    aks = fit(Eks)
+    return aks
+
+def interpolate_initial_an(S0,beta,Eks):
+    spline = scipy.interpolate.PchipInterpolator(S0, beta)
+    aks    = spline(Eks)
+    return aks
 
 def setup_input_files_inplace(infile,infofile):
     tmpfile = "tmp"
