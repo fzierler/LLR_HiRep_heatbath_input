@@ -25,8 +25,8 @@ init_file_llr_Nt5 = ["input/data/5x72_10repeats_95replicas.txt"]
 init_file_std_Nt6 = "input/data/Nt6_std_beta_vs_S0.txt"
 init_file_llr_Nt6 = ["input/data/6x72_25repeats_48replicas.txt"]
 
-init_file_std = init_file_std_Nt6
-init_file_llr = init_file_llr_Nt6
+init_file_std = init_file_std_Nt4
+init_file_llr = init_file_llr_Nt4
 
 # Plot initial guess based on existing llr results with spline interpolation
 for f in init_file_llr:
@@ -37,9 +37,11 @@ for f in init_file_llr:
 
 # Plot initial guess based on importance sampling data with a fit
 beta, plaq, uks = read_input(init_file_std)
+aks_int = llr.interpolate_initial_an(plaq,beta,uks)
+plt.plot(uks,aks_int,label="interpolate importance sampling")
 aks_fit = llr.fit_initial_an(plaq,beta,uks)
-plt.scatter(plaq,beta,label="importance sampling data")
 plt.plot(uks,aks_fit,label="fit importance sampling")
+plt.scatter(plaq,beta,label="importance sampling data")
 
 plt.title("Initial guess for $a_n$")
 plt.legend()

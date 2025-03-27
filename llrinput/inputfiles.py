@@ -28,7 +28,7 @@ def initial_an(infofile):
     plaq    = init_df['plaq']
     S0      = plaq * 6 * V
     Eks     = np.linspace(umin,umax, nreplicas)* 6 * V
-    aks     = fit_initial_an(S0,beta,Eks)
+    aks     = interpolate_initial_an(S0,beta,Eks)
     dE      = (Eks[1]-Eks[0])*2
 
     return Eks, aks, dE, nreplicas
