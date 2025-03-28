@@ -1,2 +1,4 @@
 Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,machine,cores_per_node,N_NR_per_step,N_RM_per_step,
-6,84,76,1,10,0,0.6017,0.6027,300,700,50,100,1,input/data/Nt6_std_beta_vs_S0.txt,csd3,76,1,0
+6,72,76,1,10,0,0.6017,0.6027,300,700,50,100,1,input/data/6x72_25repeats_48replicas.txt,csd3,76,1,0
+6,84,76,1,10,0,0.6017,0.6027,300,700,50,100,1,input/data/6x72_25repeats_48replicas.txt,csd3,76,1,0
+5,72,152,1,10,0,0.5875,0.5915,300,700,50,100,1,input/data/5x72_10repeats_95replicas.txt,csd3,76,1,0

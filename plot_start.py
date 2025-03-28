@@ -25,8 +25,8 @@ init_file_llr_Nt5 = ["input/data/5x72_10repeats_95replicas.txt"]
 init_file_std_Nt6 = "input/data/Nt6_std_beta_vs_S0.txt"
 init_file_llr_Nt6 = ["input/data/6x72_25repeats_48replicas.txt"]
 
-init_file_std = init_file_std_Nt4
-init_file_llr = init_file_llr_Nt4
+init_file_std = init_file_std_Nt6
+init_file_llr = init_file_llr_Nt6
 
 # Plot initial guess based on existing llr results with spline interpolation
 for f in init_file_llr:
