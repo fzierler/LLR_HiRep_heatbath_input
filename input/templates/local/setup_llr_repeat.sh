@@ -7,11 +7,10 @@ for i in {0..0}; do
     # create repeat dircetory
     cp base $i/ -r
     cd $i
-    N_NRm1=$((n_NR-1))
 
     # submit all jobs
     bash ../sp4_llr_start.sh
-    for i in $(seq 1 $N_NRm1); do
+    for i in $(seq 1 $n_NR); do
         bash ../sp4_llr_start_cont.sh
     done
     for i in $(seq 1 $n_RM); do
