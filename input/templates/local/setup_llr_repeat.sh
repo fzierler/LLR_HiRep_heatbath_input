@@ -11,9 +11,13 @@ for i in {0..0}; do
 
     # submit all jobs
     bash ../sp4_llr_start.sh
-    bash ../sp4_llr_start_cont.sh
-    bash ../sp4_llr_cont.sh
-    bash ../sp4_llr_fxa.sh
+    for i in $(seq 1 $N_NRm1); do
+        bash ../sp4_llr_start_cont.sh
+    done
+    for i in $(seq 1 $n_RM); do
+        bash ../sp4_llr_cont.sh
+    done
+    #bash ../sp4_llr_fxa.sh
 
     # move on to next repeat
     cd ..
