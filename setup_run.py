@@ -10,8 +10,8 @@ outdir     = "./output/"
 input_dir  = "./input/templates/"
 infofile   = "./input/local_tests.csv"
 
-bash_files  = ["sp4_llr_start.sh","sp4_llr_start_cont.sh","sp4_llr_cont.sh","sp4_llr_fxa.sh"]
-input_files = ["input_file_start", "input_file_start_cont", "input_file_cont", "input_file_fxa"]
+bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
+input_files = ["input_file_therm", "input_file_newton_raphson", "input_file_robbins_monro", "input_file_fxa"]
 setup_files = ["list_configs.sh","update_replicas.sh"]
 
 ## create a suitable name for the run:
@@ -51,8 +51,8 @@ for infile in input_files:
 
 for i in range(nreplicas):
     ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
-    ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_start_cont"),infofile)
-    ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_cont"),infofile)
+    ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),infofile)
+    ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),infofile)
 
 for name in bash_files:
     ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)

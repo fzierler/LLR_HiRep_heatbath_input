@@ -9,14 +9,14 @@ for i in {0..0}; do
     cd $i
 
     # submit all jobs
-    bash ../sp4_llr_start.sh
+    bash ../sp4_llr_therm.sh
     for i in $(seq 1 $n_NR); do
-        bash ../sp4_llr_start_cont.sh
+        bash ../sp4_llr_newton_raphson.sh
     done
     for i in $(seq 1 $n_RM); do
-        bash ../sp4_llr_cont.sh
+        bash ../sp4_llr_robbins_monro.sh
     done
-    #bash ../sp4_llr_fxa.sh
+    bash ../sp4_llr_fxa.sh
 
     # move on to next repeat
     cd ..

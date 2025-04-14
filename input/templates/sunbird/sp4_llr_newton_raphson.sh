@@ -13,5 +13,5 @@
 #SBATCH --mail-user=fabian.zierler@swansea.ac.uk
 
 ###
-bash ../update_replicas.sh -r 19 -i input_file_start_cont
-srun -n 76 ../../llr_hb -i input_file_start_cont
+bash ../update_replicas.sh -r 19 -i input_file_newton_raphson
+srun -n 76 ../../llr_hb -i input_file_newton_raphson

@@ -36,9 +36,9 @@ For each of this stage we prepare separate input files. The template for them ca
 
 For every stage we provide dedicated bash/slurm files than can be used to run them for a single repeat. They are called
 
-1. `sp4_llr_start.sh`
-2. `sp4_llr_start_cont.sh`
-3. `sp4_llr_cont.sh`
+1. `sp4_llr_therm.sh`
+2. `sp4_llr_newton_raphson.sh`
+3. `sp4_llr_robbins_monro.sh`
 4. `sp4_llr_fxa.sh`
 
 Most of the time, we want to run/submit all four stages at ones an repeat this many times. This is done via the script `setup_llr_repeat.sh`. In this script the number of repeats can be chosen.
@@ -49,20 +49,20 @@ The script `setup_llr_repeat.sh` creates a copy of the prepared input files from
 
 ```
 ├── info.csv
-├── input_file_cont
+├── input_file_robbins_monro
 ├── input_file_fxa
-├── input_file_start
-├── input_file_start_cont
+├── input_file_therm
+├── input_file_newton_raphson
 ├── Rep_0
-│   ├── input_file_cont
+│   ├── input_file_robbins_monro
 │   ├── input_file_fxa
-│   ├── input_file_start
-│   └── input_file_start_cont
+│   ├── input_file_therm
+│   └── input_file_newton_raphson
 ├── Rep_1
-│   ├── input_file_cont
+│   ├── input_file_robbins_monro
 │   ├── input_file_fxa
-│   ├── input_file_start
-│   └── input_file_start_cont
+│   ├── input_file_therm
+│   └── input_file_newton_raphson
 ```
 The file `info.csv` is a copy of the input for the initial script. When running the LLR the output files will be placed in the individual replica directories as `Rep_XX/out_0`. Furthermore, the last configuration and the RNG state will be saved here.
 

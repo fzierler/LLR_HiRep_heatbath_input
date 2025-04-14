@@ -13,4 +13,4 @@
 #SBATCH --mail-user=fabian.zierler@swansea.ac.uk
 
 ### 
-srun -n 76 ../../llr_hb -i input_file_start
+srun -n 76 ../../llr_hb -i input_file_therm

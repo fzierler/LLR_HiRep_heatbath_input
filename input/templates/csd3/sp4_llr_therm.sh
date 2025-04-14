@@ -18,4 +18,4 @@ module load rhel8/default-icl              # REQUIRED - loads the basic environm
 module load gcc/11
 
 ### 
-srun -n 76 ../../llr_hb -i input_file_start
+srun -n 76 ../../llr_hb -i input_file_therm
