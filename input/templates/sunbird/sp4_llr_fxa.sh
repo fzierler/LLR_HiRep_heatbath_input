@@ -14,4 +14,4 @@
 
 ###
 bash ../update_replicas.sh -r 19 -i input_file_fxa
-srun -n 76 ../../llr_hb -i input_file_fxa
+mpirun -n 76 ../../llr_hb -i input_file_fxa
