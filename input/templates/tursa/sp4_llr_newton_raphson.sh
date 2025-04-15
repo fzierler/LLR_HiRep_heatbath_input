@@ -6,6 +6,7 @@
 #SBATCH --ntasks=64
 #SBATCH --ntasks-per-node=64
 #SBATCH --qos=standard
+#SBATCH --partition=cpu
 #SBATCH -o %x.out
 #SBATCH -e %x.err
 
