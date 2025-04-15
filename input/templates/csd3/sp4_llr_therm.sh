@@ -18,5 +18,5 @@ module load rhel8/default-icl              # REQUIRED - loads the basic environm
 module load gcc/11
 
 ### 
-bash ../update_replicas.sh -r 19 -i input_file_robbins_monro 
+bash ../update_replicas.sh -r 19 -i input_file_therm 
 srun -n 76 ../../llr_hb -i input_file_therm

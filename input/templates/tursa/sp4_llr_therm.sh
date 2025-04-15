@@ -14,5 +14,5 @@
 module load gcc/9.3.0 openmpi/4.1.5
 
 ### 
-bash ../update_replicas.sh -r 19 -i input_file_newton_raphson
+bash ../update_replicas.sh -r 19 -i input_therm
 srun -n 76 ../../llr_hb -i input_file_therm
