@@ -171,6 +171,6 @@ def setup_rm_input(infile,outfile,infofile):
         for line in f:
             line = re.sub(r'^.*llr:nfxa.*$' , 'llr:nfxa=0', line)
             line = re.sub(r'^.*last conf.*$',f'last conf=+{n_rm_per_step}', line)
-            line = re.sub(r'^.*llr:it.*$'   ,f'llr:it = {rm_it}', line)
+            line = re.sub(r'^.*llr:it(?!_).*$',f'llr:it = {rm_it}', line)
             line = re.sub(r'^.*llr:N_nr.*$' , 'llr:N_nr=0', line)
             print(line,end='',file=io)
