@@ -7,8 +7,8 @@
 #SBATCH --ntasks-per-node=64
 #SBATCH --qos=standard
 #SBATCH --partition=cpu
-#SBATCH -o %x.out
-#SBATCH -e %x.err
+#SBATCH -o %x_%J_%t.out
+#SBATCH -e %x_%J_%t.err
 
 # Use modules to setup the runtime environment
 module load gcc/9.3.0 openmpi/4.1.5

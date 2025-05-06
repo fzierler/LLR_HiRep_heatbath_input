@@ -6,8 +6,8 @@
 #SBATCH --ntasks=128
 #SBATCH --ntasks-per-node=128
 
-#SBATCH -o %x.out
-#SBATCH -e %x.err
+#SBATCH -o %x_%J_%t.out
+#SBATCH -e %x_%J_%t.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=fabian.zierler@swansea.ac.uk
 

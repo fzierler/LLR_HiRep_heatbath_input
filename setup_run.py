@@ -9,8 +9,9 @@ from shutil import copyfile
 outdir     = "./output/"
 input_dir  = "./input/templates/"
 infofile   = "./input/local_tests.csv"
-infofile   = "./input/tursa.csv"
+infofile   = "./input/dial3.csv"
 infofile   = "./input/sunbird.csv"
+infofile   = "./input/tursa.csv"
 
 bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
 input_files = ["input_file_therm", "input_file_newton_raphson", "input_file_robbins_monro", "input_file_fxa"]
