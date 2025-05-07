@@ -70,4 +70,8 @@ for (( i=0; i<$r; i+=1 )); do
         fi
     fi
 
+    # if no output files exists, create one
+    # (this fixes issues seen on sunbird, where HiRep gets stuck creating the files)
+    touch Rep_$i/out_0 
+
 done
