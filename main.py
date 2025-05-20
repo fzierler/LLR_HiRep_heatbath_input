@@ -13,7 +13,7 @@ def get_run_name(input_data_row,ind):
     Lt  = input_data_row["Lt"]
     Ls  = input_data_row["Ls"]
     Rep = input_data_row["n_replicas"]
-    return f"Run{ind:03}_LLR_{Lt:02}x{Ls:03}_{Rep:03}"
+    return f"Run_{ind:03}_LLR_{Lt:02}x{Ls:03}_{Rep:03}"
 
 def main(infofile,args):
     outdir      = "./output/"
