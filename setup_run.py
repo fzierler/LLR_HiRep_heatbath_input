@@ -14,7 +14,7 @@ def get_run_name(input_data):
     Rep = input_data["n_replicas"].values[0]
     return f"LLR_{Lt}x{Ls}_{Rep}"
 
-def main(infofile):
+def main(infofile,args):
     outdir     = "./output/"
     input_dir  = "./input/templates/"
     bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
@@ -55,14 +55,19 @@ def main(infofile):
         ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),infofile)
 
     for name in bash_files:
-        ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node)
+        ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node,args)
 
 def get_args():
     parser = ArgumentParser(description="Set up structure for LLR heatbath runs with HiRep")
-    parser.add_argument("--infofile", help="The csv file with input parameters to read")
+    parser.add_argument("--infofile",  default=None, help="The csv file with input parameters to read")
+    parser.add_argument("--machine",   default=None, help="Name of the HPC cluster")
+    parser.add_argument("--partition", default=None, help="Partition to be used on the cluster")
+    parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
+    parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
+    parser.add_argument("--email",     default=None, help="Email address for cluster notifications")
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = get_args()
     infofile = args.infofile
-    main(infofile)
+    main(infofile,args)

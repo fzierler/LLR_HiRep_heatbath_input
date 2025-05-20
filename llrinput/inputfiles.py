@@ -109,21 +109,26 @@ def setup_bash_files(infile,outfile,infofile):
 def ceildiv(a, b):
     return -(a // -b)
 
-def setup_batch_files(infile,outfile,infofile,cores_per_node):
+def setup_batch_files(infile,outfile,infofile,cores_per_node,args):
     info_df = pd.read_csv(infofile)
     nreplicas = info_df['n_replicas'][0]
+    time_limit = info_df['time_limit'][0]
     PX = info_df['PX'][0] # domain decomposition
     tasks = nreplicas*PX 
     nodes = ceildiv(tasks, cores_per_node)
-
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'SBATCH --nodes=[0-9]+',"SBATCH --nodes="+str(nodes),line)
+            line = re.sub(r'SBATCH --account=\S*',  "SBATCH --account="+str(args.account),line)
+            line = re.sub(r'SBATCH --partition=\S*',"SBATCH --account="+str(args.partition),line)
+            line = re.sub(r'SBATCH --mail-user=\S*',"SBATCH --mail-user="+str(args.email),line)
+            line = re.sub(r'SBATCH --nodes=[0-9]+', "SBATCH --nodes="+str(nodes),line)
             line = re.sub(r'SBATCH --ntasks=[0-9]+',"SBATCH --ntasks="+str(tasks),line)
+            line = re.sub(r'SBATCH --time=\S*'     ,"SBATCH --time="+str(time_limit),line)
             line = re.sub(r'SBATCH --ntasks-per-node=[0-9]+',"SBATCH --ntasks-per-node="+str(cores_per_node),line)
             line = re.sub(r'-n\s+[0-9]+',"-n "+str(tasks),line)
             line = re.sub(r'-r\s+[0-9]+',"-r "+str(nreplicas),line)
+            line = re.sub(r'module load\S*', "module load "+str(args.modules),line)
             print(line,end='',file=io)
 
 def setup_fxa_input_inplace(infile):
