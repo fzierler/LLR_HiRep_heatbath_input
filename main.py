@@ -9,53 +9,57 @@ from argparse import ArgumentParser
 import tqdm
 
 ## create a suitable name for the run:
-def get_run_name(input_data,ind):
-    Lt  = input_data["Lt"].values[0]
-    Ls  = input_data["Ls"].values[0]
-    Rep = input_data["n_replicas"].values[0]
+def get_run_name(input_data_row,ind):
+    Lt  = input_data_row["Lt"]
+    Ls  = input_data_row["Ls"]
+    Rep = input_data_row["n_replicas"]
     return f"Run{ind:03}_LLR_{Lt:02}x{Ls:03}_{Rep:03}"
 
 def main(infofile,args):
-    outdir     = "./output/"
-    input_dir  = "./input/templates/"
+    outdir      = "./output/"
+    input_dir   = "./input/templates/"
     bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
     input_files = ["input_file_therm", "input_file_newton_raphson", "input_file_robbins_monro", "input_file_fxa"]
     setup_files = ["list_configs.sh","update_replicas.sh"]
+    input_data  = pd.read_csv(infofile)
+    index       = args.run_index
 
-    input_data     = pd.read_csv(infofile)
-    template_dir   = "local" if input_data["machine"].values[0] == "local" else "generic"
-    cores_per_node = input_data["cores_per_node"].values[0]
-    run_name       = get_run_name(input_data,args.run_index)
-    folder         = op.join(outdir,run_name)
+    for row_ind, input_data_row in input_data.iterrows():
+        template_dir   = "local" if input_data_row["machine"] == "local" else "generic"
+        cores_per_node = input_data_row["cores_per_node"]
+        run_name       = get_run_name(input_data_row,index)
+        folder         = op.join(outdir,run_name)
+        index         += 1
 
-    os.makedirs(os.path.join(folder,"base"), exist_ok=True)
-    copyfile(infofile,os.path.join(folder,"base","info.csv"))
+        print(row_ind, folder,index)
+        os.makedirs(os.path.join(folder,"base"), exist_ok=True)
+        input_data[row_ind:row_ind+1].to_csv(os.path.join(folder,"base","info.csv"),index=False)
+        
+        Eks, aks, dE, nreplicas = ifiles.initial_an(input_data_row)
+        ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),input_data_row)
 
-    Eks, aks, dE, nreplicas = ifiles.initial_an(input_data)
-    ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),input_data)
+        for f in setup_files:
+            src = os.path.join(input_dir,f)
+            dst = os.path.join(folder ,f)
+            copyfile(src,dst)
 
-    for f in setup_files:
-        src = os.path.join(input_dir,f)
-        dst = os.path.join(folder ,f)
-        copyfile(src,dst)
+        for infile in input_files:
+            ifiles.setup_input_files(op.join(input_dir,"base","input_file"),op.join(folder,"base",infile),input_data_row)
+            for i in range(nreplicas):
+                replica_dir = os.path.join(folder,"base",f"Rep_{i}")
+                in_replica = op.join(input_dir,"base","input_file_rep")
+                out_replica  = op.join(folder,"base",f"Rep_{i}",infile)
+                os.makedirs(replica_dir,exist_ok=True)
+                ifiles.setup_input_files(in_replica, out_replica,input_data_row)
+                ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
 
-    for infile in input_files:
-        ifiles.setup_input_files(op.join(input_dir,"base","input_file"),op.join(folder,"base",infile),input_data)
-        for i in range(nreplicas):
-            replica_dir = os.path.join(folder,"base",f"Rep_{i}")
-            in_replica = op.join(input_dir,"base","input_file_rep")
-            out_replica  = op.join(folder,"base",f"Rep_{i}",infile)
-            os.makedirs(replica_dir,exist_ok=True)
-            ifiles.setup_input_files(in_replica, out_replica,input_data)
-            ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
+        for i in tqdm.tqdm(range(nreplicas), ncols=100, desc='Creating replicas:'):
+            ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
+            ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),input_data_row)
+            ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),input_data_row)
 
-    for i in tqdm.tqdm(range(nreplicas), ncols=100, desc='Creating replicas:'):
-        ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
-        ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),input_data)
-        ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),input_data)
-
-    for name in bash_files:
-        ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),input_data,cores_per_node,args)
+        for name in bash_files:
+            ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),input_data_row,cores_per_node,args)
 
 def get_args():
     parser = ArgumentParser(description="Set up structure for LLR heatbath runs with HiRep")
