@@ -5,7 +5,7 @@ import pandas as pd
 import os.path as op
 import os
 from shutil import copyfile
-from argparse import ArgumentParser, FileType
+from argparse import ArgumentParser
 import tqdm
 
 ## create a suitable name for the run:
