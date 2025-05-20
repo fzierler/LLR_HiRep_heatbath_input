@@ -25,7 +25,7 @@ def main(infofile,args):
     index       = args.run_index
 
     for row_ind, input_data_row in input_data.iterrows():
-        template_dir   = "local" if input_data_row["machine"] == "local" else "generic"
+        template_dir   = "local" if args.machine == "local" else "generic"
         cores_per_node = input_data_row["cores_per_node"]
         run_name       = get_run_name(input_data_row,index)
         folder         = op.join(outdir,run_name)
