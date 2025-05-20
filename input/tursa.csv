@@ -1,3 +1,2 @@
-Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,machine,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it
-4,80,64,20,10,50,0.5685,0.5745,300,700,50,100,2,input/data/4x40_25repeats_128replicas.txt,tursa,64,1,1,1
-5,80,64,20,10,50,0.5885,0.5905,300,700,50,100,4,input/data/5x72_10repeats_95replicas.txt,tursa,64,1,1,1
+Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,machine,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit
+5,80,64,20,10,50,0.5885,0.5905,300,700,50,100,4,input/data/5x72_10repeats_95replicas.txt,tursa,64,1,1,1,2-00:00:00
