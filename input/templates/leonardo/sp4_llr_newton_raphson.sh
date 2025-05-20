@@ -1,11 +1,12 @@
 #!/bin/bash 
 
 #SBATCH --account=EUHPC_B22_046_0
-#SBATCH --nodes=1
+#SBATCH --partition=dcgp_usr_prod
 #SBATCH --time=0-24:00:00
+
+#SBATCH --nodes=1
 #SBATCH --ntasks=128
 #SBATCH --ntasks-per-node=128
-#SBATCH --partition=dcgp_usr_prod
 
 #SBATCH -o %x.out
 #SBATCH -e %x.err
