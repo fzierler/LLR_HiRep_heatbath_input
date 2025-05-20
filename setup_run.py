@@ -65,6 +65,7 @@ def get_args():
     parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
     parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
     parser.add_argument("--email",     default=None, help="Email address for cluster notifications")
+    parser.add_argument("--mpi_runner",default="srun", help="Specify mpi runner: (srun|mpirun|mpiexec)")
     return parser.parse_args()
 
 if __name__ == "__main__":

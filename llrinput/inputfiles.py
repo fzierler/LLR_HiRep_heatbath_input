@@ -129,6 +129,7 @@ def setup_batch_files(infile,outfile,infofile,cores_per_node,args):
             line = re.sub(r'-n\s+[0-9]+',"-n "+str(tasks),line)
             line = re.sub(r'-r\s+[0-9]+',"-r "+str(nreplicas),line)
             line = re.sub(r'module load\S*', "module load "+str(args.modules),line)
+            line = re.sub(r'(srun|mpirun|mpiexec)', args.mpi_runner,line)
             print(line,end='',file=io)
 
 def setup_fxa_input_inplace(infile):
