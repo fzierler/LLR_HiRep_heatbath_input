@@ -115,6 +115,7 @@ def setup_batch_files(infile,outfile,info_df,cores_per_node,args):
         for line in f:
             line = re.sub(r'SBATCH --account=\S*',  "SBATCH --account="+str(args.account),line)
             line = re.sub(r'SBATCH --partition=\S*',"SBATCH --account="+str(args.partition),line)
+            line = re.sub(r'SBATCH --qos=\S*',      "SBATCH --qos="+str(args.qos),line)
             line = re.sub(r'SBATCH --mail-user=\S*',"SBATCH --mail-user="+str(args.email),line)
             line = re.sub(r'SBATCH --nodes=[0-9]*', "SBATCH --nodes="+str(nodes),line)
             line = re.sub(r'SBATCH --ntasks=[0-9]*',"SBATCH --ntasks="+str(tasks),line)

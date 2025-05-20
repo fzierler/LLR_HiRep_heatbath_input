@@ -65,6 +65,7 @@ def get_args():
     parser.add_argument("--infofile",  default=None, help="The csv file with input parameters to read")
     parser.add_argument("--machine",   default=None, help="Name of the HPC cluster")
     parser.add_argument("--partition", default=None, help="Partition to be used on the cluster")
+    parser.add_argument("--qos",       default=None, help="QoS of the partition to be used on the cluster")
     parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
     parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
     parser.add_argument("--email",     default=None, help="Email address for cluster notifications")

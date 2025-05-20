@@ -2,6 +2,7 @@
 
 #SBATCH --account=
 #SBATCH --partition=
+#SBATCH --qos=
 #SBATCH --time=
 
 #SBATCH --nodes=
