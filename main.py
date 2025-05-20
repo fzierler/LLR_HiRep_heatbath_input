@@ -68,7 +68,7 @@ def get_args():
     parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
     parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
     parser.add_argument("--email",     default=None, help="Email address for cluster notifications")
-    parser.add_argument("--run_index" ,default=1,    help="Start index for numbering runs")
+    parser.add_argument("--run_index" ,default=1, type=int, help="Start index for numbering runs")
     parser.add_argument("--mpi_runner",default="srun", help="Specify mpi runner: (srun|mpirun|mpiexec)")
     parser.add_argument("--path_llr_exec",default="${HOME}", help="Specify path to LLR executable")
     return parser.parse_args()
