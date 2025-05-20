@@ -23,7 +23,7 @@ def main(infofile,args):
     setup_files = ["list_configs.sh","update_replicas.sh"]
 
     input_data     = pd.read_csv(infofile)
-    template_dir   = input_data["machine"].values[0]
+    template_dir   = "local" if input_data["machine"].values[0] == "local" else "generic"
     cores_per_node = input_data["cores_per_node"].values[0]
     run_name       = get_run_name(input_data,args.run_index)
     folder         = op.join(outdir,run_name)
