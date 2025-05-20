@@ -31,7 +31,6 @@ def main(infofile,args):
         folder         = op.join(outdir,run_name)
         index         += 1
 
-        print(row_ind, folder,index)
         os.makedirs(os.path.join(folder,"base"), exist_ok=True)
         input_data[row_ind:row_ind+1].to_csv(os.path.join(folder,"base","info.csv"),index=False)
         
