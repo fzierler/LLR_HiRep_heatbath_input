@@ -6,6 +6,7 @@ import os.path as op
 import os
 from shutil import copyfile
 from argparse import ArgumentParser, FileType
+import tqdm
 
 ## create a suitable name for the run:
 def get_run_name(input_data):
@@ -49,7 +50,7 @@ def main(infofile,args):
             ifiles.setup_input_files(in_replica, out_replica, newinfofile)
             ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
 
-    for i in range(nreplicas):
+    for i in tqdm.tqdm(range(nreplicas), ncols=100, desc='Creating replicas:'):
         ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
         ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),infofile)
         ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),infofile)
