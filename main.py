@@ -29,11 +29,10 @@ def main(infofile,args):
     folder         = op.join(outdir,run_name)
 
     os.makedirs(os.path.join(folder,"base"), exist_ok=True)
-    newinfofile = os.path.join(folder,"base","info.csv")
-    copyfile(infofile,newinfofile)
+    copyfile(infofile,os.path.join(folder,"base","info.csv"))
 
-    Eks, aks, dE, nreplicas = ifiles.initial_an(newinfofile)
-    ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),newinfofile)
+    Eks, aks, dE, nreplicas = ifiles.initial_an(input_data)
+    ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),input_data)
 
     for f in setup_files:
         src = os.path.join(input_dir,f)
@@ -41,22 +40,22 @@ def main(infofile,args):
         copyfile(src,dst)
 
     for infile in input_files:
-        ifiles.setup_input_files(op.join(input_dir,"base","input_file"),op.join(folder,"base",infile),newinfofile)
+        ifiles.setup_input_files(op.join(input_dir,"base","input_file"),op.join(folder,"base",infile),input_data)
         for i in range(nreplicas):
             replica_dir = os.path.join(folder,"base",f"Rep_{i}")
             in_replica = op.join(input_dir,"base","input_file_rep")
             out_replica  = op.join(folder,"base",f"Rep_{i}",infile)
             os.makedirs(replica_dir,exist_ok=True)
-            ifiles.setup_input_files(in_replica, out_replica, newinfofile)
+            ifiles.setup_input_files(in_replica, out_replica,input_data)
             ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
 
     for i in tqdm.tqdm(range(nreplicas), ncols=100, desc='Creating replicas:'):
         ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
-        ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),infofile)
-        ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),infofile)
+        ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),input_data)
+        ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),input_data)
 
     for name in bash_files:
-        ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),newinfofile,cores_per_node,args)
+        ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),input_data,cores_per_node,args)
 
 def get_args():
     parser = ArgumentParser(description="Set up structure for LLR heatbath runs with HiRep")

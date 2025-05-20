@@ -16,9 +16,7 @@ needed to run the LLR for the heatbath updates. The layout is the following:
     Column 2: Initial value of a_0
     Column 3: Energy interval width (aka dE/dS) 
 """
-def initial_an(infofile):
-    info_df = pd.read_csv(infofile)
-
+def initial_an(info_df):
     V = info_df['Lt'][0]*info_df['Ls'][0]**3
     umin, umax = info_df['umin'][0], info_df['umax'][0]
     nreplicas  = info_df['n_replicas'][0]
@@ -49,9 +47,7 @@ def setup_input_files_inplace(infile,infofile):
     setup_input_files(infile,tmpfile,infofile)
     move(tmpfile, infile)
 
-def setup_input_files(infile,outfile,infofile):
-    info_df = pd.read_csv(infofile)
-    
+def setup_input_files(infile,outfile,info_df):
     nreplicas = info_df['n_replicas'][0]
     N_meas = info_df['N_meas'][0]
     N_th = info_df['N_th'][0]
@@ -89,9 +85,7 @@ def setup_initial_an(infile,outfile,Emin,Emax,S0,dS,a):
             line = re.sub(r'^.*rlx_seed.*$'  , f'rlx_seed = {random.randint(1,32767-1)}', line)
             print(line, end='',file=io)
 
-def setup_bash_files(infile,outfile,infofile):
-    info_df = pd.read_csv(infofile)
-    
+def setup_bash_files(infile,outfile,info_df):  
     nreplicas = info_df['n_replicas'][0]
     N_NR = info_df['N_NR'][0]
     N_RM = info_df['N_RM'][0]
@@ -110,8 +104,7 @@ def setup_bash_files(infile,outfile,infofile):
 def ceildiv(a, b):
     return -(a // -b)
 
-def setup_batch_files(infile,outfile,infofile,cores_per_node,args):
-    info_df = pd.read_csv(infofile)
+def setup_batch_files(infile,outfile,info_df,cores_per_node,args):
     nreplicas = info_df['n_replicas'][0]
     time_limit = info_df['time_limit'][0]
     PX = info_df['PX'][0] # domain decomposition
@@ -149,13 +142,12 @@ def setup_fxa_input(infile,outfile):
             line = re.sub(r'^.*llr:sfreq_fxa.*$', 'llr:sfreq_fxa=100', line)
             print(line,end='',file=io)
 
-def setup_nr_input_inplace(infile,infofile):
+def setup_nr_input_inplace(infile,info_df):
     tmpfile = "tmp"
-    setup_nr_input(infile,tmpfile,infofile)
+    setup_nr_input(infile,tmpfile,info_df)
     move(tmpfile, infile)
 
-def setup_nr_input(infile,outfile,infofile):
-    info_df = pd.read_csv(infofile)
+def setup_nr_input(infile,outfile,info_df):
     n_nr_per_step = info_df['N_NR_per_step'][0]
     io = open(outfile, "w")
     with open(infile, "r") as f:
@@ -165,13 +157,12 @@ def setup_nr_input(infile,outfile,infofile):
             line = re.sub(r'^.*llr:N_nr.*$' ,f'llr:N_nr={n_nr_per_step}', line)
             print(line,end='',file=io)
 
-def setup_rm_input_inplace(infile,infofile):
+def setup_rm_input_inplace(infile,info_df):
     tmpfile = "tmp"
-    setup_rm_input(infile,tmpfile,infofile)
+    setup_rm_input(infile,tmpfile,info_df)
     move(tmpfile, infile)
 
-def setup_rm_input(infile,outfile,infofile):
-    info_df = pd.read_csv(infofile)
+def setup_rm_input(infile,outfile,info_df):
     n_rm_per_step = info_df['N_RM_per_step'][0]
     rm_it = info_df['rm_it'][0]
     io = open(outfile, "w")
