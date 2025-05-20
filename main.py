@@ -9,11 +9,11 @@ from argparse import ArgumentParser, FileType
 import tqdm
 
 ## create a suitable name for the run:
-def get_run_name(input_data):
+def get_run_name(input_data,ind):
     Lt  = input_data["Lt"].values[0]
     Ls  = input_data["Ls"].values[0]
     Rep = input_data["n_replicas"].values[0]
-    return f"LLR_{Lt}x{Ls}_{Rep}"
+    return f"Run{ind:03}_LLR_{Lt:02}x{Ls:03}_{Rep:03}"
 
 def main(infofile,args):
     outdir     = "./output/"
@@ -25,7 +25,7 @@ def main(infofile,args):
     input_data     = pd.read_csv(infofile)
     template_dir   = input_data["machine"].values[0]
     cores_per_node = input_data["cores_per_node"].values[0]
-    run_name       = get_run_name(input_data)
+    run_name       = get_run_name(input_data,args.run_index)
     folder         = op.join(outdir,run_name)
 
     os.makedirs(os.path.join(folder,"base"), exist_ok=True)
@@ -66,6 +66,7 @@ def get_args():
     parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
     parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
     parser.add_argument("--email",     default=None, help="Email address for cluster notifications")
+    parser.add_argument("--run_index" ,default=1,    help="Start index for numbering runs")
     parser.add_argument("--mpi_runner",default="srun", help="Specify mpi runner: (srun|mpirun|mpiexec)")
     parser.add_argument("--path_llr_exec",default="${HOME}", help="Specify path to LLR executable")
     return parser.parse_args()
