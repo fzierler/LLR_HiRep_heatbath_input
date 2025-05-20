@@ -3,6 +3,7 @@
 
 import pandas as pd
 import numpy as np
+import os.path as op
 import re
 import random
 import scipy
@@ -130,6 +131,7 @@ def setup_batch_files(infile,outfile,infofile,cores_per_node,args):
             line = re.sub(r'-r\s+[0-9]+',"-r "+str(nreplicas),line)
             line = re.sub(r'module load\S*', "module load "+str(args.modules),line)
             line = re.sub(r'(srun|mpirun|mpiexec)', args.mpi_runner,line)
+            line = re.sub(r'\S*llr_hb', op.join(args.path_llr_exec,"llr_hb"),line)
             print(line,end='',file=io)
 
 def setup_fxa_input_inplace(infile):
