@@ -16,11 +16,11 @@ needed to run the LLR for the heatbath updates. The layout is the following:
     Column 2: Initial value of a_0
     Column 3: Energy interval width (aka dE/dS) 
 """
-def initial_an(info_df):
+def initial_an(info_df,file_dir):
     V = info_df['Lt']*info_df['Ls']**3
     umin, umax = info_df['umin'], info_df['umax']
     nreplicas  = info_df['n_replicas']
-    init_file  = info_df['an_file']
+    init_file  = op.join(file_dir,info_df['an_file'])
 
     init_df = pd.read_csv(init_file)
     beta    = init_df['beta'] 

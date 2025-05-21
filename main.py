@@ -17,7 +17,8 @@ def get_run_name(input_data_row,ind):
 
 def main(infofile,args):
     outdir      = args.output_run_dir
-    input_dir   = "./input/templates/"
+    file_dir    = os.path.dirname(os.path.realpath(__file__))
+    input_dir   = op.join(file_dir,"input/templates/")
     bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
     input_files = ["input_file_therm", "input_file_newton_raphson", "input_file_robbins_monro", "input_file_fxa"]
     setup_files = ["list_configs.sh","update_replicas.sh"]
@@ -34,7 +35,7 @@ def main(infofile,args):
         os.makedirs(os.path.join(folder,"base"), exist_ok=True)
         input_data[row_ind:row_ind+1].to_csv(os.path.join(folder,"base","info.csv"),index=False)
         
-        Eks, aks, dE, nreplicas = ifiles.initial_an(input_data_row)
+        Eks, aks, dE, nreplicas = ifiles.initial_an(input_data_row,file_dir)
         ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),input_data_row)
 
         for f in setup_files:
