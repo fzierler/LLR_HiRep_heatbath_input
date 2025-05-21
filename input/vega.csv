@@ -1,0 +1,5 @@
+Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit
+4,20,64,1,1,1,0.568,0.576,300,700,50,100,4,input/data/4x20_20repeats_64replicas.txt,112,1,1,1,1-00:00:00
+4,24,64,1,1,1,0.568,0.576,300,700,50,100,4,input/data/4x20_20repeats_64replicas.txt,112,1,1,1,1-00:00:00
+5,20,96,1,1,1,0.568,0.576,300,700,50,100,4,input/data/4x20_20repeats_64replicas.txt,112,1,1,1,1-00:00:00
+5,20,128,1,1,1,0.568,0.576,300,700,50,100,4,input/data/4x20_20repeats_64replicas.txt,112,1,1,1,1-00:00:00
