@@ -16,7 +16,7 @@ def get_run_name(input_data_row,ind):
     return f"Run_{ind:03}_LLR_{Lt:02}x{Ls:03}_{Rep:03}"
 
 def main(infofile,args):
-    outdir      = "./output/"
+    outdir      = args.output_run_dir
     input_dir   = "./input/templates/"
     bash_files  = ["sp4_llr_therm.sh","sp4_llr_newton_raphson.sh","sp4_llr_robbins_monro.sh","sp4_llr_fxa.sh"]
     input_files = ["input_file_therm", "input_file_newton_raphson", "input_file_robbins_monro", "input_file_fxa"]
@@ -69,9 +69,10 @@ def get_args():
     parser.add_argument("--account",   default=None, help="Account to be used on the cluster")
     parser.add_argument("--modules",   default=None, help="Modules to be loaded on the cluster")
     parser.add_argument("--email",     default=None, help="Email address for cluster notifications")
-    parser.add_argument("--run_index" ,default=1, type=int, help="Start index for numbering runs")
-    parser.add_argument("--mpi_runner",default="srun", help="Specify mpi runner: (srun|mpirun|mpiexec)")
-    parser.add_argument("--path_llr_exec",default="${HOME}", help="Specify path to LLR executable")
+    parser.add_argument("--run_index" ,default=1, type=int, help="Start index for numbering runs (default=1)")
+    parser.add_argument("--mpi_runner",default="srun", help="Specify mpi runner: (srun|mpirun|mpiexec), default=srun")
+    parser.add_argument("--path_llr_exec" ,default="${HOME}" , help="Specify path to LLR executable (default=$HOME)")
+    parser.add_argument("--output_run_dir",default="./output", help="Specify path to the output directory (default=./output)")
     return parser.parse_args()
 
 if __name__ == "__main__":
