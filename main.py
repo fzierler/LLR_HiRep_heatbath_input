@@ -62,7 +62,7 @@ def main(infofile,args):
 
 def get_args():
     parser = ArgumentParser(description="Set up structure for LLR heatbath runs with HiRep")
-    parser.add_argument("--infofile",  default=None, help="The csv file with input parameters to read")
+    parser.add_argument("--input_params_csv",  default=None, help="The csv file with input parameters to read")
     parser.add_argument("--machine",   default=None, help="Name of the HPC cluster")
     parser.add_argument("--partition", default=None, help="Partition to be used on the cluster")
     parser.add_argument("--qos",       default=None, help="QoS of the partition to be used on the cluster")
@@ -76,5 +76,5 @@ def get_args():
 
 if __name__ == "__main__":
     args = get_args()
-    infofile = args.infofile
+    infofile = args.input_params_csv
     main(infofile,args)
