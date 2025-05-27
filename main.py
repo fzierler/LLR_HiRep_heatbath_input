@@ -52,11 +52,15 @@ def main(infofile,args):
                 os.makedirs(replica_dir,exist_ok=True)
                 ifiles.setup_input_files(in_replica, out_replica,input_data_row)
                 ifiles.setup_initial_an_inplace(out_replica, min(Eks), max(Eks), Eks[i], dE, aks[i])
+        # [end-for-loop] input_files
+
+        print("Generating replicas in Run -->: " + run_name)
 
         for i in tqdm.tqdm(range(nreplicas), ncols=100, desc='Creating replicas:'):
             ifiles.setup_fxa_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_fxa"))
             ifiles.setup_nr_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_newton_raphson"),input_data_row)
             ifiles.setup_rm_input_inplace(op.join(folder,"base",f"Rep_{i}","input_file_robbins_monro"),input_data_row)
+        # [end-for-looo] nreplicas
 
         for name in bash_files:
             ifiles.setup_batch_files(op.join(input_dir,template_dir,name),op.join(folder,name),input_data_row,cores_per_node,args)

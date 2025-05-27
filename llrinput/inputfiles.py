@@ -113,14 +113,22 @@ def setup_batch_files(infile,outfile,info_df,cores_per_node,args):
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'SBATCH --account=\S*',  "SBATCH --account="+str(args.account),line)
             line = re.sub(r'SBATCH --partition=\S*',"SBATCH --partition="+str(args.partition),line)
-            line = re.sub(r'SBATCH --qos=\S*',      "SBATCH --qos="+str(args.qos),line)
             line = re.sub(r'SBATCH --mail-user=\S*',"SBATCH --mail-user="+str(args.email),line)
             line = re.sub(r'SBATCH --nodes=[0-9]*', "SBATCH --nodes="+str(nodes),line)
             line = re.sub(r'SBATCH --ntasks=[0-9]*',"SBATCH --ntasks="+str(tasks),line)
             line = re.sub(r'SBATCH --time=\S*'     ,"SBATCH --time="+str(time_limit),line)
             line = re.sub(r'SBATCH --ntasks-per-node=[0-9]*',"SBATCH --ntasks-per-node="+str(cores_per_node),line)
+            # Taking of the case when some SBATCH directives are not needed
+            # Manages from the argument list.
+            if args.qos is None:
+                line = re.sub(r'SBATCH --qos=\S*', "" ,line)
+                line = re.sub(r'SBATCH --account=\S*', "" ,line)
+            else:
+                line = re.sub(r'SBATCH --qos=\S*', "SBATCH --qos="+str(args.qos),line)
+                line = re.sub(r'SBATCH --account=\S*', "SBATCH --account="+str(args.account),line)
+            # [end-if] args.machine
+
             line = re.sub(r'-n\s+[0-9]*',"-n "+str(tasks),line)
             line = re.sub(r'-r\s+[0-9]*',"-r "+str(nreplicas),line)
             line = re.sub(r'module load\S*', "module load "+str(args.modules),line)
