@@ -21,7 +21,7 @@ config save frequency = 1000
 last conf = +0
 beta  =   2.40
 nhb   =   1
-nor   =   0
+nor   = 
 nit   =   1
 
 // LLR
