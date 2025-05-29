@@ -125,9 +125,12 @@ def setup_batch_files(infile,outfile,info_df,cores_per_node,args):
             # Manages from the argument list.
             if args.qos is None:
                 line = re.sub(r'SBATCH --qos=\S*', "" ,line)
-                line = re.sub(r'SBATCH --account=\S*', "" ,line)
             else:
                 line = re.sub(r'SBATCH --qos=\S*', "SBATCH --qos="+str(args.qos),line)
+            # [end-if] args.machine
+            if args.account is None:
+                line = re.sub(r'SBATCH --account=\S*', "" ,line)
+            else:
                 line = re.sub(r'SBATCH --account=\S*', "SBATCH --account="+str(args.account),line)
             # [end-if] args.machine
 
