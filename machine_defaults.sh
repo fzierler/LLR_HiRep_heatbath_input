@@ -1,0 +1,1 @@
+python3 main.py --input_params_csv input/csd3.csv --machine csd3 --partition icelake --account DIRAC-DP208-CPU --qos dirac-cpu1 --email fabian.zierler@swansea.ac.uk --path_llr_exec "../.." --modules "openmpi/gcc/9.3/4.0.4 gcc/9"
