@@ -15,7 +15,7 @@
 #SBATCH --mail-user=
 
 # Use modules to setup the runtime environment
-module purge
+#module purge
 module load
 
 ###
