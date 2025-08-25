@@ -70,7 +70,7 @@ The file `info.csv` is a copy of the input for the initial script. When running 
 
 The input parameters are collected in a .csv file. A test file is provided in `input/local_tests.csv` This file is then used by the script `setup_run.py` which generates the structure as described above. In addition, it contains bash scripts that allow it to run either locally or on any of the provided clusters via slurm. Changes can be made in the templates in `templates/csd3` and `templates/dial3`
 
-Currently, our project number (dp208) and my email (fabian.zierler@swansea.ac.uk) is hard-coded. 
+Machine dependent parameters are passed to the script `main.py` as command line parameters. See the file `machine_defaults.sh` for useful command line parameters for the DiRAC machines. Execute `python3 main.py --help` for information on all input parameters.
 
 ### Parameters
 
@@ -92,7 +92,8 @@ Currently, our project number (dp208) and my email (fabian.zierler@swansea.ac.uk
 - `cores_per_node`: Specify the number of cores per node available on the chosen machine.
 - `N_NR_per_step`: The number of actual NR steps performed in every slurm array step
 - `N_RM_per_step`: The number of actual RM steps performed in every slurm array step
-
+- `rm_it`: Starting iteration number/weight for the RM updates
+- `time_limit`: Time limit to be set for all jobs
 
 ### Testing 
 
@@ -108,10 +109,5 @@ See the document `Notes_on_HiRep_with_replica_exchanges.md`
 
 ### TODO:
 
-1. Update the RNG seed for the thermalization for every repeat.
-2. Remove hard-coded project number and email address.
-3. Remove hard-coded fixed-$a_n$ parameters
-4. Use input parameters marked as "unused" above
-5. Remove the need to rename the configurations before performing RM steps. Instead, we should be able to pass the current iteration number required for the RM update directly to HiRep. This is supported, but this number is currently overwritten with the configuration number in HiRep.
-6. Add an option to get the initial $a_n$ from an existing LLR runs
-7. Have separate output files for every slurm (array) job. (This should help in removing data from incomplete runs due to cluster failures)
+1. Use input parameters marked as "unused" above
+2. Add an option to get the initial $a_n$ from an existing LLR runs
