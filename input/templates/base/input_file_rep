@@ -9,7 +9,7 @@ log:inverter = -1
 log:forcestat = 0
 
 // Runtime variables
-therm = 1000
+therm = 
 run name = run1
 config dir = Cnfg
 gauge start = random

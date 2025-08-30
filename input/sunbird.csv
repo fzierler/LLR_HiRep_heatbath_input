@@ -1,2 +1,2 @@
-Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit
-5,80,64,20,10,50,0,0.5885,0.5905,300,700,50,100,4,1,input/data/sp4/5x72_10repeats_95replicas.txt,40,1,1,1,1-00:00:00
+Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
+5,80,64,20,10,50,0,0.5885,0.5905,300,700,50,100,4,1,input/data/sp4/5x72_10repeats_95replicas.txt,40,1,1,1,1-00:00:00,1000

@@ -51,6 +51,7 @@ def setup_input_files(infile,outfile,info_df):
     nreplicas = info_df['n_replicas']
     N_meas = info_df['N_meas']
     N_th = info_df['N_th']
+    therm = info_df['therm']
     Lt = info_df['Lt'] # temporal length 
     Ls = info_df['Ls'] # spatial length
     PX = info_df['PX'] # domain decomposition
@@ -68,6 +69,7 @@ def setup_input_files(infile,outfile,info_df):
             line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
             line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
+            line = re.sub(r'^.*therm.*$', f'therm = {therm}', line)
             print(line, end='',file=io)
 
 def setup_initial_an_inplace(infile,Emin,Emax,S0,dS,a):
