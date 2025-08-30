@@ -16,14 +16,14 @@ def read_input(init_file):
     uks  = np.linspace(umin-DeltaU,umax+DeltaU, 100)
     return beta, plaq, uks 
 
-init_file_std_Nt4 = "input/data/Nt4_std_beta_vs_S0.txt"
-init_file_llr_Nt4 = ["input/data/4x40_25repeats_128replicas.txt"]
+init_file_std_Nt4 = "input/data/sp4/Nt4_std_beta_vs_S0.txt"
+init_file_llr_Nt4 = ["input/data/sp4/4x40_25repeats_128replicas.txt"]
 
-init_file_std_Nt5 = "input/data/Nt5_std_beta_vs_S0.txt"
-init_file_llr_Nt5 = ["input/data/5x72_10repeats_95replicas.txt"]
+init_file_std_Nt5 = "input/data/sp4/Nt5_std_beta_vs_S0.txt"
+init_file_llr_Nt5 = ["input/data/sp4/5x72_10repeats_95replicas.txt"]
 
-init_file_std_Nt6 = "input/data/Nt6_std_beta_vs_S0.txt"
-init_file_llr_Nt6 = ["input/data/6x72_25repeats_48replicas.txt"]
+init_file_std_Nt6 = "input/data/sp4/Nt6_std_beta_vs_S0.txt"
+init_file_llr_Nt6 = ["input/data/sp4/6x72_25repeats_48replicas.txt"]
 
 init_file_std = init_file_std_Nt6
 init_file_llr = init_file_llr_Nt6
