@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import llrinput.inputfiles as ifiles
+import llrinput.provenance as pv
 import pandas as pd 
 import os.path as op
 import os
@@ -33,7 +34,12 @@ def main(infofile,args):
         index         += 1
 
         os.makedirs(os.path.join(folder,"base"), exist_ok=True)
-        input_data[row_ind:row_ind+1].to_csv(os.path.join(folder,"base","info.csv"),index=False)
+        info_base = os.path.join(folder,"base","info.csv")
+
+        io = open(info_base, "w")
+        print(pv.provenance_string("#"), end='',file=io)
+        io.close()
+        input_data[row_ind:row_ind+1].to_csv(info_base,index=False,mode="a")
         
         Eks, aks, dE, nreplicas = ifiles.initial_an(input_data_row,file_dir)
         ifiles.setup_bash_files(op.join(input_dir,template_dir,"setup_llr_repeat.sh"),op.join(folder,"setup_llr_repeat.sh"),input_data_row)

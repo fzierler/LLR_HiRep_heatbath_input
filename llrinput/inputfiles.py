@@ -8,6 +8,7 @@ import re
 import random
 import scipy
 from shutil import move
+from .provenance import provenance_string
 
 """
 This function generates a three-column csv file that contains the replica-specfic input quantities
@@ -58,6 +59,7 @@ def setup_input_files(infile,outfile,info_df):
     PY = info_df['PY'] # domain decomposition
     
     io = open(outfile, "w")
+    print(provenance_string("//"), end='',file=io)
     with open(infile, "r") as f:
         for line in f:
             line = re.sub(r'^.*GLB_T.*$', f'GLB_T = {Lt}', line)
