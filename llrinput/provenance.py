@@ -5,7 +5,7 @@ import os
 import socket
 
 def get_commit_id():
-    git_result = subprocess.run(["git", "describe", "--always", "--dirty"], capture_output=True)
+    git_result = subprocess.run(["git", "describe", "--always"], capture_output=True)
     if git_result.returncode != 0:
         commit_id = "[No commit ID available]"
     else:
@@ -20,7 +20,7 @@ def get_metadata():
     Do not modify it by hand."""
     metadata["time"] = now
     metadata["machine_name"] = socket.gethostname()
-    metadata["analysis_code_version"] = get_commit_id()
+    metadata["generation_code_version"] = get_commit_id()
     metadata["workflow_step"] = " ".join(psutil.Process(os.getpid()).cmdline())
     return metadata
 
