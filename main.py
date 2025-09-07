@@ -11,10 +11,11 @@ import tqdm
 
 ## create a suitable name for the run:
 def get_run_name(input_data_row,ind):
+    group = input_data_row["group"]
     Lt  = input_data_row["Lt"]
     Ls  = input_data_row["Ls"]
     Rep = input_data_row["n_replicas"]
-    return f"Run_{ind}_LLR_{Lt}x{Ls}_{Rep}"
+    return f"LLR_{group}_{Lt}x{Ls}_{Rep}_Run_{ind}"
 
 def main(infofile,args):
     outdir      = args.output_run_dir
