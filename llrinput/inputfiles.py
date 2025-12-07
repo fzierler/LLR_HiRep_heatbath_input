@@ -57,6 +57,7 @@ def setup_input_files(infile,outfile,info_df):
     Ls = info_df['Ls'] # spatial length
     PX = info_df['PX'] # domain decomposition
     PY = info_df['PY'] # domain decomposition
+    nor = info_df['n_or']
     
     io = open(outfile, "w")
     print(provenance_string("//"), end='',file=io)
@@ -71,6 +72,7 @@ def setup_input_files(infile,outfile,info_df):
             line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
             line = re.sub(r'^.*llr:nmc.*$', f'llr:nmc = {N_meas}', line)
             line = re.sub(r'^.*llr:nth.*$', f'llr:nth = {N_th}', line)
+            line = re.sub(r'^.*nor.*$',f'nor = {nor}', line)
             line = re.sub(r'^.*therm.*$', f'therm = {therm}', line)
             print(line, end='',file=io)
 
@@ -183,13 +185,11 @@ def setup_rm_input_inplace(infile,info_df):
 def setup_rm_input(infile,outfile,info_df):
     n_rm_per_step = info_df['N_RM_per_step']
     rm_it = info_df['rm_it']
-    nor = info_df['n_or']
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
             line = re.sub(r'^.*llr:nfxa.*$' , 'llr:nfxa=0', line)
             line = re.sub(r'^.*last conf.*$',f'last conf=+{n_rm_per_step}', line)
             line = re.sub(r'^.*llr:it(?!_).*$',f'llr:it = {rm_it}', line)
-            line = re.sub(r'^.*nor.*$',f'nor = {nor}', line)
             line = re.sub(r'^.*llr:N_nr.*$' , 'llr:N_nr=0', line)
             print(line,end='',file=io)
