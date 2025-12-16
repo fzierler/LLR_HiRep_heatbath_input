@@ -1,5 +1,5 @@
 group,Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
 su4,5,32,64,1,1,1,0,0.5450,0.5530,300,700,50,100,4,1,input/data/su4/su4_5x20_flat.txt,128,10,10,1,4-00:00:00,1000
 su4,6,32,64,1,1,1,0,0.5605,0.5640,300,700,50,100,4,1,input/data/su4/su4_6x24_flat.txt,128,10,10,1,4-00:00:00,1000
-su4,7,40,96,1,1,1,0,0.5720,0.5740,300,700,50,100,4,1,input/data/su4/su4_6x24_flat.txt,128,10,10,1,4-00:00:00,1000
+su4,7,32,64,1,1,1,0,0.5720,0.5740,300,700,50,100,4,1,input/data/su4/su4_6x24_flat.txt,128,10,10,1,4-00:00:00,1000
 su4,8,40,128,1,1,1,0,0.5820,0.5835,300,700,50,100,4,1,input/data/su4/su4_6x24_flat.txt,128,10,10,1,4-00:00:00,1000
