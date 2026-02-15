@@ -1,3 +1,4 @@
-python3 main.py --input_params_csv input/csd3.csv --machine csd3 --partition icelake --account DIRAC-DP208-CPU --qos dirac-cpu1 --modules "openmpi/gcc/9.3/4.0.4 gcc/9" --email fabian.zierler@swansea.ac.uk --path_llr_exec "../.."
-python3 main.py --input_params_csv input/tursa.csv --machine tursa --partition cpu --account dp208 --qos standard --modules "gcc/9.3.0 openmpi/4.1.5" --email fabian.zierler@swansea.ac.uk --path_llr_exec "../.."
-python3 main.py --input_params_csv input/dial3.csv --machine dial --partition slurm --account dp208 --qos high --modules "gcc/10.3.0 openmpi/4.0.5" --email fabian.zierler@swansea.ac.uk --path_llr_exec "../.."
+python3 main.py --input_params_csv input/csd3.csv --machine csd3 --partition icelake --account DIRAC-DP208-CPU --qos dirac-cpu1 --modules "openmpi/gcc/9.3/4.0.4 gcc/9" --email fabian.zierler@tum.de --path_llr_exec "../.."
+python3 main.py --input_params_csv input/tursa.csv --machine tursa --partition cpu --account dp208 --qos standard --modules "gcc/9.3.0 openmpi/4.1.5" --email fabian.zierler@tum.de --path_llr_exec "../.."
+python3 main.py --input_params_csv input/dial3.csv --machine dial --partition slurm --account dp208 --qos high --modules "gcc/10.3.0 openmpi/4.0.5" --email fabian.zierler@tum.de --path_llr_exec "../.."
+python3 main.py --input_params_csv input/MareNostrum.csv --machine marenostrum --partition gpp --account ehpc598 --qos gp_ehpc --modules "intel/2025.2 impi/2021.16" --email fabian.zierler@tum.de --path_llr_exec "../.."
