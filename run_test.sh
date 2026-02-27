@@ -4,7 +4,9 @@ cd output
 git clone https://github.com/fzierler/Hirep_LLR_SP
 cd Hirep_LLR_SP/LLR_HB/
 git checkout llr_heatbath_new_spn
+cd ../../../  
 
+cd output/Hirep_LLR_SP/LLR_HB/
 make 
 cp ./llr_hb ../../
 cd ../../../

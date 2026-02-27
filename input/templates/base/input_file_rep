@@ -40,3 +40,4 @@ llr:it_freq = 1
 llr:starta =
 llr:S0 =
 llr:dS =
+llr:meas_print_freq = 1
