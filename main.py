@@ -13,9 +13,14 @@ import tqdm
 def get_run_name(input_data_row,ind):
     group = input_data_row["group"]
     Lt  = input_data_row["Lt"]
-    Ls  = input_data_row["Ls"]
+    Lx  = input_data_row["Lx"]
+    Ly  = input_data_row["Ly"]
+    Lz  = input_data_row["Lz"]
     Rep = input_data_row["n_replicas"]
-    return f"LLR_{group}_{Lt}x{Ls}_{Rep}_Run_{ind}"
+    if Lx == Ly == Lz:
+        return f"LLR_{group}_{Lt}x{Lx}_{Rep}_Run_{ind}"
+    else:
+        return f"LLR_{group}_{Lt}x{Lx}x{Ly}x{Lz}_{Rep}_Run_{ind}"
 
 def main(infofile,args):
     outdir      = args.output_run_dir

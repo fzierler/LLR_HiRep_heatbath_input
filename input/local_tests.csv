@@ -1,2 +1,2 @@
-group,Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
-sp4,4,4,8,1,1,1,0,0.568,0.576,300,700,50,100,1,1,input/data/sp4/Nt4_std_beta_vs_S0.txt,8,4,4,1,1-00:00:00,1000
+group,Lt,Lx,Ly,Lz,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
+sp4,4,4,4,4,8,1,1,1,0,0.568,0.576,300,700,50,100,1,1,input/data/sp4/Nt4_std_beta_vs_S0.txt,8,4,4,1,1-00:00:00,1000

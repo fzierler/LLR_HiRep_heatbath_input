@@ -18,7 +18,7 @@ needed to run the LLR for the heatbath updates. The layout is the following:
     Column 3: Energy interval width (aka dE/dS) 
 """
 def initial_an(info_df,file_dir):
-    V = info_df['Lt']*info_df['Ls']**3
+    V = info_df['Lt']*info_df['Lx']*info_df['Ly']*info_df['Lz']
     umin, umax = info_df['umin'], info_df['umax']
     nreplicas  = info_df['n_replicas']
     init_file  = op.join(file_dir,info_df['an_file'])
@@ -54,7 +54,9 @@ def setup_input_files(infile,outfile,info_df):
     N_th = info_df['N_th']
     therm = info_df['therm']
     Lt = info_df['Lt'] # temporal length 
-    Ls = info_df['Ls'] # spatial length
+    Lx = info_df['Lx'] # spatial length
+    Ly = info_df['Ly'] # spatial length
+    Lz = info_df['Lz'] # spatial length
     PX = info_df['PX'] # domain decomposition
     PY = info_df['PY'] # domain decomposition
     nor = info_df['n_or']
@@ -64,9 +66,9 @@ def setup_input_files(infile,outfile,info_df):
     with open(infile, "r") as f:
         for line in f:
             line = re.sub(r'^.*GLB_T.*$', f'GLB_T = {Lt}', line)
-            line = re.sub(r'^.*GLB_X.*$', f'GLB_X = {Ls}', line)
-            line = re.sub(r'^.*GLB_Y.*$', f'GLB_Y = {Ls}', line)
-            line = re.sub(r'^.*GLB_Z.*$', f'GLB_Z = {Ls}', line)
+            line = re.sub(r'^.*GLB_X.*$', f'GLB_X = {Lx}', line)
+            line = re.sub(r'^.*GLB_Y.*$', f'GLB_Y = {Ly}', line)
+            line = re.sub(r'^.*GLB_Z.*$', f'GLB_Z = {Lz}', line)
             line = re.sub(r'^.*NP_X.*$' , f'NP_X = {PX}', line)
             line = re.sub(r'^.*NP_Y.*$' , f'NP_Y = {PY}', line)
             line = re.sub(r'^.*N_REP.*$', f'N_REP = {nreplicas}', line)
@@ -95,15 +97,22 @@ def setup_initial_an(infile,outfile,Emin,Emax,S0,dS,a):
 
 def setup_bash_files(infile,outfile,info_df):  
     nreplicas = info_df['n_replicas']
+    group = info_df['group'] 
     N_NR = info_df['N_NR']
     N_RM = info_df['N_RM']
     Lt = info_df['Lt'] # temporal length 
-    Ls = info_df['Ls'] # spatial length
+    Lx = info_df['Lx'] # spatial length
+    Ly = info_df['Ly'] # spatial length
+    Lz = info_df['Lz'] # spatial length
+    if Lx == Ly == Lz:
+        name = f'run_name={group}_{Lt}x{Lx}_{nreplicas}'
+    else:
+        name = f'run_name={group}_{Lt}x{Lx}x{Ly}x{Lz}_{nreplicas}'
 
     io = open(outfile, "w")
     with open(infile, "r") as f:
         for line in f:
-            line = re.sub(r'^.*run_name.*$', f'run_name=sp4_{Lt}x{Ls}_{nreplicas}', line)
+            line = re.sub(r'^.*run_name.*$', name, line)
             line = re.sub(r'^.*n_RM=.*$', f'n_RM={N_RM}', line)
             line = re.sub(r'^.*n_NR=.*$', f'n_NR={N_NR}', line)
             print(line, end='',file=io)

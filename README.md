@@ -75,7 +75,9 @@ Machine dependent parameters are passed to the script `main.py` as command line 
 ### Parameters
 
 - `Lt`: temporal lattice extent
-- `Ls`: spatial lattice extent
+- `Lx`: spatial lattice extent in x direction
+- `Ly`: spatial lattice extent in y direction
+- `Lz`: spatial lattice extent in z direction
 - `n_replicas`: Number of replicas
 - `n_repeats`: Number of initial repeats (unused)
 - `N_NR`: Number of NR steps in the slurm array job

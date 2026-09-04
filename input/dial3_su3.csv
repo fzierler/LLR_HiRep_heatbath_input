@@ -1,7 +1,7 @@
-group,Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
-su3,4,28,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
-su3,4,40,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
-su3,4,80,114,1,1,1,0,0.546,0.553,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,1,1,1,4-00:00:00,1000
-su3,4,80,114,1,1,1,0,0.547,0.552,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,1,1,1,4-00:00:00,1000
-su3,4,32,96,1,1,1,0,0.545,0.554,300,700,50,100,4,1,input/data/su3/su3_4x28_95replicas.txt,128,10,10,1,4-00:00:00,1000
-su3,4,24,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
+group,Lt,Lx,Ly,Lz,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
+su3,4,28,28,28,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
+su3,4,40,40,40,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
+su3,4,80,80,80,114,1,1,1,0,0.546,0.553,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,1,1,1,4-00:00:00,1000
+su3,4,80,80,80,114,1,1,1,0,0.547,0.552,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,1,1,1,4-00:00:00,1000
+su3,4,32,32,32,96,1,1,1,0,0.545,0.554,300,700,50,100,4,1,input/data/su3/su3_4x28_95replicas.txt,128,10,10,1,4-00:00:00,1000
+su3,4,24,24,24,96,1,1,1,0,0.543,0.556,300,700,50,100,4,1,input/data/su3/su3_4x20_108replicas.txt,128,10,10,1,4-00:00:00,1000
