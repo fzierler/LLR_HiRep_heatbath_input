@@ -1,3 +1,0 @@
-group,Lt,Ls,n_replicas,n_repeats,N_NR,N_RM,n_or,umin,umax,N_th,N_meas,Nfs_swaps,Nfa_meas,PX,PY,an_file,cores_per_node,N_NR_per_step,N_RM_per_step,rm_it,time_limit,therm
-su4,7,32,76,1,1,1,0,0.5720,0.5740,300,700,50,100,4,1,input/data/su4/su4_7x24_flat.txt,76,10,10,1,1-12:00:00,1000
-su4,8,46,76,1,1,1,0,0.5820,0.5835,300,700,50,100,4,1,input/data/su4/su4_8x24_flat.txt,76,10,10,1,1-12:00:00,1000
